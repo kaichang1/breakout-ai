@@ -84,7 +84,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836365857508446031}
   m_LocalRotation: {x: 0, y: 0, z: -0.5, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.49, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 8836365857855596024}
   - component: {fileID: 8836365857855596025}
   - component: {fileID: 8836365857855596020}
-  - component: {fileID: 8836365857855596026}
+  - component: {fileID: 6963439668237094134}
   - component: {fileID: 8836365857855596027}
   - component: {fileID: 8836365857855596028}
   - component: {fileID: 8836365857855596021}
@@ -236,8 +236,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &8836365857855596026
-PolygonCollider2D:
+--- !u!70 &6963439668237094134
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -250,25 +250,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0.27083334, y: 0, z: 0.27083334, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.0833334, y: 0.25}
-    newSize: {x: 1.5, y: 0.25}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.41106537, y: 0.13194656}
-      - {x: -0.5115837, y: 0.09470844}
-      - {x: -0.56094354, y: -0.007966042}
-      - {x: -0.5889054, y: -0.125}
-      - {x: 0.5729313, y: -0.125}
-      - {x: 0.5494646, y: 0.0032858849}
-      - {x: 0.51383173, y: 0.0940299}
-      - {x: 0.4082867, y: 0.12847376}
+  m_Size: {x: 1.125, y: 0.25}
+  m_Direction: 1
 --- !u!114 &8836365857855596027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,9 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca9efd3a3ba9194498dc0e25dcec9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  speed: 0
-  horizontalBounceMultiplier: 0
 --- !u!114 &8836365857855596028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -430,7 +410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836365858626275762}
   m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.49, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

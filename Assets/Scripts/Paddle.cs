@@ -49,14 +49,25 @@ public class Paddle : MonoBehaviour
             Vector2 contactPoint = collision.GetContact(0).point;
             Vector2 paddleCenter = transform.position;
 
-            // Contact point with ball determines how far left/right the ball bounces
-            float diff = contactPoint.x - paddleCenter.x;
-            float horizontalVelocity = diff * GameManager.Instance.paddleHorizontalBounceMultiplier;
-            // Ensure that the velocity vector's magnitude equals the ballSpeed
-            Vector2 velocityVector = new Vector2(horizontalVelocity, BallManager.Instance.ballSpeed);
-            velocityVector = velocityVector.normalized * BallManager.Instance.ballSpeed;
-
-            ballRb.velocity = velocityVector;
+            Vector2 velocity = collision.relativeVelocity;
+            if (contactPoint.y < paddleCenter.y)
+            {
+                // Side collisions below the paddle midpoint should bounce the ball downwards
+                velocity.x = -velocity.x;
+                velocity.y = Mathf.Min(velocity.y, -velocity.y);
+            }
+            else
+            {
+                // Contact point with ball determines how far left/right the ball bounces for top collisions
+                float diff = contactPoint.x - paddleCenter.x;
+                float horizontalSpeed = diff * GameManager.Instance.paddleHorizontalBounceMultiplier;
+                // Top collisions should bounce the ball upwards
+                velocity.x = horizontalSpeed;
+                velocity.y = Mathf.Max(velocity.y, -velocity.y);
+            }
+            // Ensure that the velocity vector's magnitude (speed) equals the ballSpeed
+            velocity = velocity.normalized * BallManager.Instance.ballSpeed;
+            ballRb.velocity = velocity;
         }
     }
 

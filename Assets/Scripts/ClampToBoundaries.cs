@@ -11,21 +11,22 @@ public class ClampToBoundaries : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpriteRenderer backgroundSr = transform.parent.Find("Background").GetComponent<SpriteRenderer>();
+        float objectWidthHalf = gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;  // bounds.extents.x is half of the object's width
+        float backgroundWidthHalf = transform.parent.Find("Background").GetComponent<SpriteRenderer>().bounds.extents.x;
+        float sideWallWidth = transform.parent.Find("Walls").Find("WallsLeft").GetComponent<BoxCollider2D>().size.x;
 
         // Local position is affected by parent position
-        _minX = transform.parent.position.x - backgroundSr.bounds.extents.x;
-        _maxX = transform.parent.position.x + backgroundSr.bounds.extents.x;
+        // Clamping depends on parent position, background width, wall width, and object width
+        _minX = transform.parent.position.x - backgroundWidthHalf + sideWallWidth + objectWidthHalf;
+        _maxX = transform.parent.position.x + backgroundWidthHalf - sideWallWidth - objectWidthHalf;
     }
 
     // LateUpdate is called after all Update functions have been called
     void LateUpdate()
     {
-        float objectWidthHalf = gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;  // bounds.extents.x is half of the object's width
-
-        // Clamp the X position based on the screen boundaries and the object's width
+        // Clamp the X position
         Vector2 newPosition = transform.position;
-        newPosition.x = Mathf.Clamp(newPosition.x, _minX + objectWidthHalf, _maxX - objectWidthHalf);
+        newPosition.x = Mathf.Clamp(newPosition.x, _minX, _maxX);
         transform.position = newPosition;
     }
 }
