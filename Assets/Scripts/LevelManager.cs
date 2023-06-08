@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -24,9 +23,7 @@ public class LevelManager : MonoBehaviour
     #endregion
 
     public int initialLevel;
-    public GameObject easy;
-    public GameObject medium;
-    public GameObject hard;
+
     public Sprite[] brickSprites;  // { 1 hp brick, 2 hp brick, 3 hp brick }
     public Color[] brickColors;
     public Brick brickPrefab;
@@ -47,32 +44,6 @@ public class LevelManager : MonoBehaviour
     {
         _levelsHpData = LoadLevelsHpData();
         _levelsColorsData = LoadLevelsColorsData();
-
-        Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "Versus")
-        {
-            if (GameSettings.agentDifficulty == 0)
-            {
-                easy.name = "Paddle";
-                easy.SetActive(true);
-                medium.SetActive(false);
-                hard.SetActive(false);
-            }
-            if (GameSettings.agentDifficulty == 1)
-            {
-                medium.name = "Paddle";
-                easy.SetActive(false);
-                medium.SetActive(true);
-                hard.SetActive(false);
-            }
-            if (GameSettings.agentDifficulty == 2)
-            {
-                hard.name = "Paddle";
-                easy.SetActive(false);
-                medium.SetActive(false);
-                hard.SetActive(true);
-            }
-        }
 
         foreach (Player player in GameManager.Instance.players)
         {
@@ -114,7 +85,7 @@ public class LevelManager : MonoBehaviour
 
                 GenerateLevel(player, player.currentLevel);
                 UIManager.Instance.UpdateLevelText(player);
-                BallManager.Instance.ResetBall(player);
+                BallManager.Instance.ResetBalls(player);
                 //player.paddle.ResetPosition();
 
                 player.gameStarted = false;

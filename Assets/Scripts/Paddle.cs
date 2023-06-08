@@ -5,10 +5,7 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    public Player player;
-
-    public float speed;
-    public float horizontalBounceMultiplier;  // Affects how much the ball bounces left or right during collisions
+    public Player player { get; set; }
 
     private Vector3 _paddlePositionInitial;
 
@@ -24,7 +21,7 @@ public class Paddle : MonoBehaviour
     void Update()
     {
         // Only move the human player paddle.
-        // The AI player moves their paddle via Agent files.
+        // The AI player moves the paddle via Agent files.
         if (player == GameManager.Instance.players[0])
         {
             if (Input.GetAxisRaw("Mouse X") != 0)  // If the mouse has moved along the X axis
@@ -39,23 +36,28 @@ public class Paddle : MonoBehaviour
             {
                 // Update paddle X position based on keyboard horizontal axis input and speed
                 Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
-                transform.Translate(speed * Time.deltaTime * direction);
+                transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * direction);
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
-        Vector2 contactPoint = collision.GetContact(0).point;
-        Vector2 paddleCenter = transform.position;
+        if (collision.gameObject.CompareTag("Ball"))
+        {
+            Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            Vector2 contactPoint = collision.GetContact(0).point;
+            Vector2 paddleCenter = transform.position;
 
-        ballRb.velocity = Vector2.zero;
+            // Contact point with ball determines how far left/right the ball bounces
+            float diff = contactPoint.x - paddleCenter.x;
+            float horizontalVelocity = diff * GameManager.Instance.paddleHorizontalBounceMultiplier;
+            // Ensure that the velocity vector's magnitude equals the ballSpeed
+            Vector2 velocityVector = new Vector2(horizontalVelocity, BallManager.Instance.ballSpeed);
+            velocityVector = velocityVector.normalized * BallManager.Instance.ballSpeed;
 
-        float diff = contactPoint.x - paddleCenter.x;
-        float horizontalForce = diff * horizontalBounceMultiplier;  // Horizontal force applied to the ball, magnitude depends on contact point
-        Vector2 force = new Vector2(horizontalForce, BallManager.Instance.ballStartForce);
-        ballRb.AddForce(force);
+            ballRb.velocity = velocityVector;
+        }
     }
 
     public void ResetPosition()

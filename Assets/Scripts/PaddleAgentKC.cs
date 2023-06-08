@@ -17,7 +17,6 @@ public class PaddleAgentKC : Agent
     {
         player = GameManager.Instance.players[1];  // AI player
 
-        _speed = player.paddle.speed;
         _background = GameObject.Find("Background");
         _screenBounds = _background.GetComponent<SpriteRenderer>().bounds.extents;
     }
@@ -42,7 +41,7 @@ public class PaddleAgentKC : Agent
     {
         // Update paddle X position
         float moveX = actions.ContinuousActions[0];
-        transform.Translate(_speed * Time.deltaTime * new Vector3(moveX, 0, 0));
+        transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * new Vector3(moveX, 0, 0));
 
         // Shoot the ball
         int shoot = actions.DiscreteActions[0];

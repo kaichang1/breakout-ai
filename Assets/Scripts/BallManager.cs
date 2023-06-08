@@ -20,8 +20,7 @@ public class BallManager : MonoBehaviour
     #endregion
 
     public Ball ballRedPrefab;
-    public Ball ballBluePrefab;
-    public float ballStartForce;
+    public float ballSpeed;
     public float padding;  // Padding between ball and paddle
 
     void Start()
@@ -30,11 +29,7 @@ public class BallManager : MonoBehaviour
         {
             if (player != null)
             {
-                if (GameSettings.ballColor == "Red") {
-                    CreateBall(player, ballRedPrefab);
-                } else {
-                    CreateBall(player, ballBluePrefab);
-                }
+                CreateBall(player, ballRedPrefab);
             }
         }
     }
@@ -71,7 +66,7 @@ public class BallManager : MonoBehaviour
         if (player.balls.Count == 1)
         {
             Ball ball = player.balls[0];
-            ball.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, ballStartForce));
+            ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, ballSpeed);
         }
     }
 
@@ -94,13 +89,9 @@ public class BallManager : MonoBehaviour
         }
     }
 
-    public void ResetBall(Player player)
+    public void ResetBalls(Player player)
     {
         DestroyBalls(player);
-        if (GameSettings.ballColor == "Red") {
-            CreateBall(player, ballRedPrefab);
-        } else {
-            CreateBall(player, ballBluePrefab);
-        }
+        CreateBall(player, ballRedPrefab);
     }
 }

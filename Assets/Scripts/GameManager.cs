@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    // public int initialLives = GameSettings.livesSelection;
+    public int initialLives = 3;
+    public float paddleSpeed;
+    public float paddleHorizontalBounceMultiplier;  // Affects how much the ball bounces left or right during paddle collisions
     public int brickPoints;  // Number of points given for each brick hitpoint
 
     public Player[] players { get; set; }  // { human, AI }
@@ -49,8 +51,6 @@ public class GameManager : MonoBehaviour
         // The first index is reserved for the human player.
         // The second index is reversed for the AI player.
         // Elements in the array may be null if only the human or AI is playing.
-        Debug.Log("gamemanager gamesettingsinitiallives="+GameSettings.livesSelection);
-        // Debug.Log("gamemanager initiallives="+initialLives);
         players = new Player[2];
 
         GameObject human = GameObject.Find("Human");
@@ -63,8 +63,6 @@ public class GameManager : MonoBehaviour
         if (AI != null)
         {
             players[1] = AI.GetComponent<Player>();
-
-
         }
 
         // Update UI
@@ -94,7 +92,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            BallManager.Instance.ResetBall(player);
+            BallManager.Instance.ResetBalls(player);
             //player.paddle.ResetPosition();
 
             // Pause the game
@@ -115,7 +113,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetLives(Player player)
     {
-        player.lives = GameSettings.livesSelection;
+        player.lives = initialLives;
         UIManager.Instance.UpdateLivesText(player);
     }
 
@@ -135,15 +133,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        GameSettings.livesSelection = 3;
-        GameSettings.agentDifficulty = 0;
-        GameSettings.ballColor = "Red";
         SceneManager.LoadScene("MainMenu");
     }
-
-    public void OptionsLoadMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
 }

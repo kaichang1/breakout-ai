@@ -10,7 +10,6 @@ public class PaddleAgentTrainerKC : Agent
 {
     private Player player;
 
-    private float _speed;
     private GameObject _background;
     private Vector3 _screenBounds;
     void Start()
@@ -20,7 +19,6 @@ public class PaddleAgentTrainerKC : Agent
         Brick.OnBrickDestruction += OnBrickDestructionReward;
         Ball.OnBallDeath += OnBallDeathReward;
 
-        _speed = player.paddle.speed;
         _background = GameObject.Find("Background");
         _screenBounds = _background.GetComponent<SpriteRenderer>().bounds.extents;
     }
@@ -51,7 +49,7 @@ public class PaddleAgentTrainerKC : Agent
     {
         // Update paddle X position
         float moveX = actions.ContinuousActions[0];
-        transform.Translate(_speed * Time.deltaTime * new Vector3(moveX, 0, 0));
+        transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * new Vector3(moveX, 0, 0));
 
         // Shoot the ball
         int shoot = actions.DiscreteActions[0];

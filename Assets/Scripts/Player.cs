@@ -30,10 +30,14 @@ public class Player : MonoBehaviour
 
         currentLevel = LevelManager.Instance.initialLevel;
         score = 0;
-        // lives = GameManager.Instance.initialLives;
-        lives = GameSettings.livesSelection;
+        lives = GameManager.Instance.initialLives;
 
-        paddle = transform.Find("Paddle").GetComponent<Paddle>();
+        Transform paddleTransform = transform.Find("PaddleHuman");
+        if (paddleTransform == null)
+        {
+            paddleTransform = transform.Find("PaddleAI");
+        }
+        paddle = paddleTransform.GetComponent<Paddle>();
 
         bricksContainer = new GameObject("Bricks Container");
         bricksContainer.transform.SetParent(transform);
