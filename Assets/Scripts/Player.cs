@@ -1,21 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public bool gameStarted { get; set; }
-
-    public int currentLevel { get; set; }
-    public int score { get; set; }
-    public int lives { get; set; }
-
-    public Paddle paddle { get; set; }
-    public List<Ball> balls { get; set; }
-    public int RemainingBricks { get; set; }  // Number of bricks left in the current level
-    public GameObject bricksContainer { get; set; }  // Container to hold instantiated bricks
-
     public TMP_Text levelText;
     public TMP_Text scoreText;
     public TMP_Text livesText;
@@ -24,22 +11,38 @@ public class Player : MonoBehaviour
     public GameObject victoryScreen;
     public GameObject gameOverScreen;
 
+    internal bool _isGameStarted;
+
+    internal int _currentLevel;
+    internal int _score;
+    internal int _lives;
+
+    internal Paddle _paddle;
+    internal Ball _startingBall;
+    internal GameObject _ballsContainer;  // Container to hold instantiated balls
+    internal int _ballsCount;  // Number of balls
+    internal GameObject _bricksContainer;  // Container to hold instantiated bricks
+    internal int _bricksCount;  // Number of bricks remaining in the current level
+
     void Start()
     {
-        gameStarted = false;
+        _isGameStarted = false;
 
-        currentLevel = LevelManager.Instance.initialLevel;
-        score = 0;
-        lives = GameManager.Instance.initialLives;
+        _currentLevel = LevelManager.Instance.initialLevel;
+        _score = 0;
+        _lives = GameManager.Instance.initialLives;
 
         Transform paddleTransform = transform.Find("PaddleHuman");
         if (paddleTransform == null)
         {
             paddleTransform = transform.Find("PaddleAI");
         }
-        paddle = paddleTransform.GetComponent<Paddle>();
+        _paddle = paddleTransform.GetComponent<Paddle>();
 
-        bricksContainer = new GameObject("Bricks Container");
-        bricksContainer.transform.SetParent(transform);
+        _ballsContainer = new GameObject("Balls Container");
+        _ballsContainer.transform.SetParent(transform);
+
+        _bricksContainer = new GameObject("Bricks Container");
+        _bricksContainer.transform.SetParent(transform);
     }
 }

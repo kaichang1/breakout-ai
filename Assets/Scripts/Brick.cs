@@ -1,18 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
     public static event Action<Brick> OnBrickDestruction;
 
-    public Player player { get; set; }
+    public int initialHp;
 
-    public int hp = 1;
-    public int initialHp { get; private set; }
-    public ParticleSystem DestructionEffect;
+    internal Player _player;
 
+    [SerializeField] private ParticleSystem _destructionEffect;
+
+    private int _hp;
     private SpriteRenderer _sr;
 
     private void Awake()
@@ -26,29 +25,30 @@ public class Brick : MonoBehaviour
     /// <param name="owner">The player associated with the brick.</param>
     /// <param name="containerTransform">The transform component of the parent container.</param>
     /// <param name="sprite">The brick's sprite image.</param>
+    /// <param name="color">The brick's color.</param>
     /// <param name="hitpoints">The brick's hitpoints.</param>
     public void Init(Player owner, Transform containerTransform, Sprite sprite, Color color, int hitpoints)
     {
-        player = owner;
+        _player = owner;
         transform.SetParent(containerTransform);
         _sr.sprite = sprite;
         _sr.color = color;
-        hp = initialHp = hitpoints;
+        initialHp = _hp = hitpoints;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        hp--;
-        if (hp <= 0)
+        _hp--;
+        if (_hp <= 0)
         {
-            player.RemainingBricks--;
+            _player._bricksCount--;
             OnBrickDestruction?.Invoke(this);
             ApplyDestructionEffect();
             Destroy(gameObject);
         }
         else
         {
-            _sr.sprite = LevelManager.Instance.brickSprites[hp - 1];
+            _sr.sprite = LevelManager.Instance.brickSprites[_hp - 1];
         }
     }
 
@@ -57,7 +57,7 @@ public class Brick : MonoBehaviour
     /// </summary>
     private void ApplyDestructionEffect()
     {
-        GameObject effect = Instantiate(DestructionEffect.gameObject, transform.position, Quaternion.identity);
+        GameObject effect = Instantiate(_destructionEffect.gameObject, transform.position, Quaternion.identity);
         ParticleSystem.MainModule mm = effect.GetComponent<ParticleSystem>().main;
         mm.startColor = _sr.color;
     }

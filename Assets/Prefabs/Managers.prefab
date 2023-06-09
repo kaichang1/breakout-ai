@@ -47,7 +47,7 @@ MonoBehaviour:
   initialLives: 3
   paddleSpeed: 5
   paddleHorizontalBounceMultiplier: 7
-  brickPoints: 50
+  _brickPoints: 50
 --- !u!1 &3222801386286101883
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d05e0a07bd3e64badaee6b58cbcc48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballRedPrefab: {fileID: 8328126268780514528, guid: b8d9c7b641af9914196d6a5af94d1dd6, type: 3}
   ballSpeed: 7
-  padding: 0.26
+  _ballRedPrefab: {fileID: 8328126268780514528, guid: b8d9c7b641af9914196d6a5af94d1dd6, type: 3}
+  _padding: 0.26
 --- !u!1 &3222801387167880995
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,15 +188,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad101a83789de514b9c8a4d740ac5d7f, type: 3}
   - {fileID: 21300000, guid: 29cfa4481b7785248a1c5b307aac3c64, type: 3}
   - {fileID: 21300000, guid: 612c38f76c0e3d1478333aa3cd5ef5ac, type: 3}
-  brickColors:
+  _brickColors:
   - {r: 0, g: 1, b: 1, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
   - {r: 1, g: 0.6, b: 1, a: 1}
-  - {r: 0.6, g: 0.3, b: 1, a: 1}
-  brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
-  levelsHpFile: LevelsHp
-  levelsColorsFile: LevelsColors
+  - {r: 0.6, g: 0.29803923, b: 1, a: 1}
+  _brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
+  _levelsHpFile: LevelsHp
+  _levelsColorsFile: LevelsColors
 --- !u!1 &3222801387770236303
 GameObject:
   m_ObjectHideFlags: 0

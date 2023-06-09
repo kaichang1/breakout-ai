@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.UIElements;
 
 public class Ball : MonoBehaviour
 {
     public static event Action<Ball> OnBallDeath;
 
-    public Player player { get; set; }
+    internal Player _player;
 
-    public void Init(Player owner)
+    public void Init(Player owner, Transform containerTransform)
     {
-        player = owner;
-        transform.SetParent(player.transform);
+        _player = owner;
+        transform.SetParent(containerTransform);
     }
 
     public void Death() {

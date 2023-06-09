@@ -586,7 +586,7 @@ GameObject:
   - component: {fileID: 1096664727}
   - component: {fileID: 1096664726}
   m_Layer: 0
-  m_Name: Controller
+  m_Name: Game Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -604,8 +604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singlePlayerMode: Breakout
-  versusAIMode: BreakoutVersus
+  _singlePlayerMode: Breakout
+  _versusAIMode: BreakoutVersus
 --- !u!4 &1096664727
 Transform:
   m_ObjectHideFlags: 0
@@ -842,7 +842,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1096664726}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: versusModeButton
+        m_MethodName: VersusModeButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1044,7 +1044,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1096664726}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: singlePlayerButton
+        m_MethodName: SinglePlayerButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -1,44 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using System;
 
 public class PaddleAgentTrainerKC : Agent
 {
-    private Player player;
+    private Player _player;
+    private float _minX;
+    private float _maxX;
 
-    private GameObject _background;
-    private Vector3 _screenBounds;
     void Start()
     {
-        player = GameManager.Instance.players[1];  // AI player
+        _player = GameManager.Instance._players[1];  // AI player
 
         Brick.OnBrickDestruction += OnBrickDestructionReward;
         Ball.OnBallDeath += OnBallDeathReward;
 
-        _background = GameObject.Find("Background");
-        _screenBounds = _background.GetComponent<SpriteRenderer>().bounds.extents;
+        ClampToBoundaries clampToBoundaries = GetComponent<ClampToBoundaries>();
+        _minX = clampToBoundaries._minX - transform.parent.position.x;  // Local position
+        _maxX = clampToBoundaries._maxX - transform.parent.position.x;
     }
 
     public override void OnEpisodeBegin()
     {
-        LevelManager.Instance.ResetLevels(player);
-        GameManager.Instance.ResetScore(player);
-        GameManager.Instance.ResetLives(player);
-        player.paddle.ResetPosition();
+        _player._isGameStarted = false;
+
+        LevelManager.Instance.ResetLevels(_player);
+        GameManager.Instance.ResetScore(_player);
+        GameManager.Instance.ResetLives(_player);
+
+        BallManager.Instance.ResetBalls(_player);
+        _player._paddle.ResetPosition();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
+        // Observations are based on local positions.
+
         // Paddle position
-        sensor.AddObservation(transform.position);
+        sensor.AddObservation(transform.localPosition);
 
         // Wall positions
-        sensor.AddObservation(-1 * _screenBounds.x);
-        sensor.AddObservation(_screenBounds.x);
+        sensor.AddObservation(_minX);
+        sensor.AddObservation(_maxX);
 
         // Ball positions: Ray Perception Sensor
 
@@ -53,18 +57,19 @@ public class PaddleAgentTrainerKC : Agent
 
         // Shoot the ball
         int shoot = actions.DiscreteActions[0];
-        if (!player.gameStarted && shoot == 1)
+        if (!_player._isGameStarted && shoot == 1)
         {
-            player.gameStarted = true;
-            BallManager.Instance.ShootBall(player);
+            _player._isGameStarted = true;
+            BallManager.Instance.ShootBall(_player);
         }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
+        // Human horizontal input (arrow keys)
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = Input.GetAxisRaw("Horizontal");
-
+        // Human space key input
         ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
         discreteActions[0] = Input.GetKeyDown(KeyCode.Space) ? 1 : 0;
     }

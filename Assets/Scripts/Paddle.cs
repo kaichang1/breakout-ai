@@ -1,18 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    public Player player { get; set; }
+    internal Player _player;
 
     private Vector3 _paddlePositionInitial;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = transform.parent.GetComponent<Player>();
+        _player = transform.parent.GetComponent<Player>();
 
         _paddlePositionInitial = transform.position;
     }
@@ -22,7 +19,7 @@ public class Paddle : MonoBehaviour
     {
         // Only move the human player paddle.
         // The AI player moves the paddle via Agent files.
-        if (player == GameManager.Instance.players[0])
+        if (_player == GameManager.Instance._players[0])
         {
             if (Input.GetAxisRaw("Mouse X") != 0)  // If the mouse has moved along the X axis
             {

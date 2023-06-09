@@ -1,11 +1,5 @@
-using Google.Protobuf.Collections;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,12 +19,13 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public int initialLives = 3;
+    public int initialLives;
     public float paddleSpeed;
     public float paddleHorizontalBounceMultiplier;  // Affects how much the ball bounces left or right during paddle collisions
-    public int brickPoints;  // Number of points given for each brick hitpoint
 
-    public Player[] players { get; set; }  // { human, AI }
+    [SerializeField] private int _brickPoints;  // Number of points given for each brick hitpoint
+
+    internal Player[] _players;  // { human, AI }
 
     private void OnEnable()
     {
@@ -51,22 +46,22 @@ public class GameManager : MonoBehaviour
         // The first index is reserved for the human player.
         // The second index is reversed for the AI player.
         // Elements in the array may be null if only the human or AI is playing.
-        players = new Player[2];
+        _players = new Player[2];
 
         GameObject human = GameObject.Find("Human");
         if (human != null)
         {
-            players[0] = human.GetComponent<Player>();
+            _players[0] = human.GetComponent<Player>();
         }
 
         GameObject AI = GameObject.Find("AI");
         if (AI != null)
         {
-            players[1] = AI.GetComponent<Player>();
+            _players[1] = AI.GetComponent<Player>();
         }
 
         // Update UI
-        foreach (Player player in players)
+        foreach (Player player in _players)
         {
             if ( player != null )
             {
@@ -79,32 +74,34 @@ public class GameManager : MonoBehaviour
 
     public void OnBallDeath(Ball ball)
     {
-        Player player = ball.player;
+        Player player = ball._player;
 
-        player.lives--;
-        UIManager.Instance.UpdateLivesText(player);
-
-        if (player.lives <= 0)
+        player._ballsCount--;
+        if (player._ballsCount <= 0)
         {
-            BallManager.Instance.DestroyBalls(player);
+            player._lives--;
+            UIManager.Instance.UpdateLivesText(player);
 
-            player.gameOverScreen.SetActive(true);
-        }
-        else
-        {
-            BallManager.Instance.ResetBalls(player);
-            //player.paddle.ResetPosition();
+            if (player._lives <= 0)
+            {
+                GameOver(player);
+            }
+            else
+            {
+                BallManager.Instance.ResetBalls(player);
+                //player.paddle.ResetPosition();
 
-            // Pause the game
-            player.gameStarted = false;
+                // Pause the game
+                player._isGameStarted = false;
+            }
         }
     }
 
     private void UpdateScore(Brick brick)
     {
-        Player player = brick.player;
+        Player player = brick._player;
 
-        player.score += brick.initialHp * GameManager.Instance.brickPoints;
+        player._score += brick.initialHp * GameManager.Instance._brickPoints;
         UIManager.Instance.UpdateScoreText(player);
     }
 
@@ -113,7 +110,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetLives(Player player)
     {
-        player.lives = initialLives;
+        player._lives = initialLives;
         UIManager.Instance.UpdateLivesText(player);
     }
 
@@ -122,8 +119,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetScore(Player player)
     {
-        player.score = 0;
+        player._score = 0;
         UIManager.Instance.UpdateScoreText(player);
+    }
+
+    private void GameOver(Player player)
+    {
+        BallManager.Instance.DestroyBalls(player);
+        player.gameOverScreen.SetActive(true);
     }
 
     public void RestartGame()

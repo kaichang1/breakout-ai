@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -23,13 +21,12 @@ public class LevelManager : MonoBehaviour
     #endregion
 
     public int initialLevel;
-
     public Sprite[] brickSprites;  // { 1 hp brick, 2 hp brick, 3 hp brick }
-    public Color[] brickColors;
-    public Brick brickPrefab;
 
-    public string levelsHpFile;
-    public string levelsColorsFile;
+    [SerializeField] private Color[] _brickColors;
+    [SerializeField] private Brick _brickPrefab;
+    [SerializeField] private string _levelsHpFile;
+    [SerializeField] private string _levelsColorsFile;
 
     private List<int[,]> _levelsHpData;  // Brick hp data for all levels
     private List<int[,]> _levelsColorsData;  // Brick color data for all levels
@@ -45,11 +42,11 @@ public class LevelManager : MonoBehaviour
         _levelsHpData = LoadLevelsHpData();
         _levelsColorsData = LoadLevelsColorsData();
 
-        foreach (Player player in GameManager.Instance.players)
+        foreach (Player player in GameManager.Instance._players)
         {
             if (player != null)
             {
-                GenerateLevel(player, player.currentLevel);
+                GenerateLevel(player, player._currentLevel);
             }
         }
     }
@@ -67,7 +64,7 @@ public class LevelManager : MonoBehaviour
 
     private void LevelCompletion(Brick brick)
     {
-        Player player = brick.player;
+        Player player = brick._player;
 
         if (CheckLevelCompletion(player))
         {
@@ -81,36 +78,36 @@ public class LevelManager : MonoBehaviour
             else
             {
                 // TODO: level change visual?
-                player.currentLevel++;
+                player._currentLevel++;
 
-                GenerateLevel(player, player.currentLevel);
+                GenerateLevel(player, player._currentLevel);
                 UIManager.Instance.UpdateLevelText(player);
                 BallManager.Instance.ResetBalls(player);
                 //player.paddle.ResetPosition();
 
-                player.gameStarted = false;
+                player._isGameStarted = false;
             }
         }
     }
 
-    public bool CheckLevelCompletion(Player player)
+    private bool CheckLevelCompletion(Player player)
     {
-        return player.RemainingBricks == 0;
+        return player._bricksCount == 0;
     }
-    public bool CheckFinalLevel(Player player)
+    private bool CheckFinalLevel(Player player)
     {
-        return player.currentLevel == _levelsHpData.Count;
+        return player._currentLevel == _levelsHpData.Count;
     }
 
     /// <summary>
     /// Destroy all bricks in the current level.
     /// </summary>
-    public void ClearLevel(Player player)
+    private void ClearLevel(Player player)
     {
         // Destroy all current bricks
-        for (int i = 0; i < player.bricksContainer.transform.childCount; i++)
+        for (int i = 0; i < player._bricksContainer.transform.childCount; i++)
         {
-            Destroy(player.bricksContainer.transform.GetChild(i).gameObject);
+            Destroy(player._bricksContainer.transform.GetChild(i).gameObject);
         }
     }
 
@@ -121,8 +118,8 @@ public class LevelManager : MonoBehaviour
     {
         ClearLevel(player);
 
-        player.currentLevel = 1;
-        GenerateLevel(player, player.currentLevel);
+        player._currentLevel = 1;
+        GenerateLevel(player, player._currentLevel);
 
         UIManager.Instance.UpdateLevelText(player);
     }
@@ -131,12 +128,12 @@ public class LevelManager : MonoBehaviour
     /// Generate the current level.
     /// </summary>
     /// <param name="currentLevel">Current level in the game.</param>
-    public void GenerateLevel(Player player, int currentLevel)
+    private void GenerateLevel(Player player, int currentLevel)
     {
         int[,] levelHpData = _levelsHpData[currentLevel - 1];
         int[,] levelColorData = _levelsColorsData[currentLevel - 1];
 
-        player.RemainingBricks = 0;
+        player._bricksCount = 0;
 
         // Local position is affected by parent position
         float currentX = player.transform.position.x + _initialBrickPosition.x;
@@ -151,10 +148,10 @@ public class LevelManager : MonoBehaviour
 
                 if (brickHp > 0)
                 {
-                    Brick brick = Instantiate(brickPrefab, new Vector3(currentX, currentY, _initialBrickPosition.z), Quaternion.identity) as Brick;
-                    brick.Init(player, player.bricksContainer.transform, brickSprites[brickHp - 1], brickColors[brickColor - 1], brickHp);
+                    Brick brick = Instantiate(_brickPrefab, new Vector3(currentX, currentY, _initialBrickPosition.z), Quaternion.identity) as Brick;
+                    brick.Init(player, player._bricksContainer.transform, brickSprites[brickHp - 1], _brickColors[brickColor - 1], brickHp);
 
-                    player.RemainingBricks++;
+                    player._bricksCount++;
                 }
 
                 currentX += _shift;
@@ -180,7 +177,7 @@ public class LevelManager : MonoBehaviour
     /// <returns>List of levels data (hitpoints)</returns>
     private List<int[,]> LoadLevelsHpData()
     {
-        return LoadLevelsData(levelsHpFile);
+        return LoadLevelsData(_levelsHpFile);
     }
 
     /// <summary>
@@ -198,7 +195,7 @@ public class LevelManager : MonoBehaviour
     /// <returns>List of levels data (colors)</returns>
     private List<int[,]> LoadLevelsColorsData()
     {
-        return LoadLevelsData(levelsColorsFile);
+        return LoadLevelsData(_levelsColorsFile);
     }
 
     /// <summary>

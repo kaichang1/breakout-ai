@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallManager : MonoBehaviour
@@ -19,36 +18,35 @@ public class BallManager : MonoBehaviour
     }
     #endregion
 
-    public Ball ballRedPrefab;
     public float ballSpeed;
-    public float padding;  // Padding between ball and paddle
+
+    [SerializeField] private Ball _ballRedPrefab;
+    [SerializeField] private float _padding;  // Padding between ball and paddle
 
     void Start()
     {
-        foreach (Player player in GameManager.Instance.players)
+        foreach (Player player in GameManager.Instance._players)
         {
             if (player != null)
             {
-                CreateBall(player, ballRedPrefab);
+                CreateBall(player, _ballRedPrefab);
             }
         }
     }
 
     private void LateUpdate()
     {
-        foreach (Player player in GameManager.Instance.players)
+        foreach (Player player in GameManager.Instance._players)
         {
-            if (player != null && !player.gameStarted && player.balls.Count == 1)
+            if (player != null && !player._isGameStarted && player._ballsCount == 1)
             {
-                Ball ball = player.balls[0];
-
-                Vector3 paddlePosition = player.paddle.transform.position;
-                Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
-                ball.transform.position = ballPosition;
+                Vector3 paddlePosition = player._paddle.transform.position;
+                Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + _padding, paddlePosition.z);
+                player._startingBall.transform.position = ballPosition;
 
                 if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
                 {
-                    player.gameStarted = true;
+                    player._isGameStarted = true;
                     ShootBall(player);
                 }
             }
@@ -63,35 +61,36 @@ public class BallManager : MonoBehaviour
     /// <param name="player"></param>
     public void ShootBall(Player player)
     {
-        if (player.balls.Count == 1)
+        if (player._ballsCount == 1)
         {
-            Ball ball = player.balls[0];
-            ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, ballSpeed);
+            player._startingBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, ballSpeed);
         }
     }
 
     public void CreateBall(Player player, Ball ballPrefab)
     {
-        Vector3 paddlePosition = player.paddle.transform.position;
-        Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
+        Vector3 paddlePosition = player._paddle.transform.position;
+        Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + _padding, paddlePosition.z);
 
         Ball ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
-        ball.Init(player);
+        ball.Init(player, player._ballsContainer.transform);
 
-        player.balls = new List<Ball> { ball };
+        player._startingBall = ball;
+        player._ballsCount = 1;
     }
-
+    
     public void DestroyBalls(Player player)
     {
-        foreach (Ball ball in player.balls)
+        for (int i = 0; i < player._ballsContainer.transform.childCount; i++)
         {
-            Destroy(ball.gameObject);
+            Destroy(player._ballsContainer.transform.GetChild(i).gameObject);
         }
+        player._ballsCount = 0;
     }
 
     public void ResetBalls(Player player)
     {
         DestroyBalls(player);
-        CreateBall(player, ballRedPrefab);
+        CreateBall(player, _ballRedPrefab);
     }
 }

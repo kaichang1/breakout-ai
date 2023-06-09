@@ -124,5 +124,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa902255cc82bd4095c39016db841bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
-  DestructionEffect: {fileID: 8342461728849408742, guid: e97c0518b98fc9d4e93ca01f06e0d3ce, type: 3}
+  initialHp: 1
+  _destructionEffect: {fileID: 8342461728849408742, guid: e97c0518b98fc9d4e93ca01f06e0d3ce, type: 3}

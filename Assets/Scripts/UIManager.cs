@@ -1,10 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,23 +18,24 @@ public class UIManager : MonoBehaviour
         }
     }
     #endregion
+
     public void UpdateLevelText(Player player)
     {
-        player.levelText.text = $"Level{Environment.NewLine}{player.currentLevel}";
+        player.levelText.text = $"Level{Environment.NewLine}{player._currentLevel}";
     }
 
     public void UpdateScoreText(Player player)
     {
-        player.scoreText.text = $"Score{Environment.NewLine}{player.score}";
+        player.scoreText.text = $"Score{Environment.NewLine}{player._score}";
     }
 
     public void UpdateLivesText(Player player)
     {
-        player.livesText.text = $"Lives{Environment.NewLine}{player.lives}";
+        player.livesText.text = $"Lives{Environment.NewLine}{player._lives}";
     }
 
     public void UpdateFinalScoreText(Player player)
     {
-        player.finalScoreText.text = $"Final Score{Environment.NewLine}{player.score}";
+        player.finalScoreText.text = $"Final Score{Environment.NewLine}{player._score}";
     }
 }
