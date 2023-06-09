@@ -6,7 +6,6 @@ public class Paddle : MonoBehaviour
 
     private Vector3 _paddlePositionInitial;
 
-    // Start is called before the first frame update
     void Start()
     {
         _player = transform.parent.GetComponent<Player>();
@@ -14,10 +13,9 @@ public class Paddle : MonoBehaviour
         _paddlePositionInitial = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Only move the human player paddle.
+        // Only move the human player's paddle.
         // The AI player moves the paddle via Agent files.
         if (_player == GameManager.Instance._players[0])
         {
@@ -31,7 +29,7 @@ public class Paddle : MonoBehaviour
             }
             else
             {
-                // Update paddle X position based on keyboard horizontal axis input and speed
+                // Update paddle X position based on keyboard horizontal axis input (arrow keys) and speed
                 Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
                 transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * direction);
             }
@@ -48,6 +46,17 @@ public class Paddle : MonoBehaviour
         BallCollision(collision);
     }
 
+    /// <summary>
+    /// Handle ball collisions.
+    /// 
+    /// Collisions to the bottom half of the paddle (mainly on the sides)
+    /// bounce the ball downwards in the opposite X direction.
+    /// 
+    /// Collisions to the top of the paddle bounce the ball upwards and to the
+    /// left or right with varying degrees of horizontal magnitude depending on
+    /// the contact point's location.
+    /// </summary>
+    /// <param name="collision">Collision object's collider.</param>
     private void BallCollision(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
@@ -57,19 +66,21 @@ public class Paddle : MonoBehaviour
             Vector2 paddleCenter = transform.position;
 
             Vector2 velocity = ballRb.velocity;
+            // Collisions below the paddle midpoint (on the sides)
             if (ballCenter.y < paddleCenter.y)
             {
-                // Side collisions below the paddle midpoint should bounce the ball downwards
+                // Bounce the ball downwards in the opposite X direction
                 float velocityAbsX = Mathf.Abs(velocity.x);
                 velocity.x = ballCenter.x < paddleCenter.x ? -velocityAbsX : velocityAbsX;
                 velocity.y = Mathf.Min(velocity.y, -velocity.y);
             }
+            // Top collisions
             else
             {
-                // Contact point with ball determines how far left/right the ball bounces for top collisions
+                // Contact point with ball determines how far left/right the ball bounces
                 float diff = ballCenter.x - paddleCenter.x;
                 float horizontalSpeed = diff * GameManager.Instance.paddleHorizontalBounceMultiplier;
-                // Top collisions should bounce the ball upwards
+                // Bounce the ball upwards and to the left/right depending on the location of contact
                 velocity.x = horizontalSpeed;
                 velocity.y = Mathf.Max(velocity.y, -velocity.y);
             }
@@ -79,6 +90,9 @@ public class Paddle : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reset the paddle position.
+    /// </summary>
     public void ResetPosition()
     {
         transform.position = _paddlePositionInitial;

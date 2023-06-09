@@ -21,7 +21,7 @@ public class BallManager : MonoBehaviour
     public float ballSpeed;
 
     [SerializeField] private Ball _ballRedPrefab;
-    [SerializeField] private float _padding;  // Padding between ball and paddle
+    [SerializeField] private float _padding;  // Padding between ball and paddle during ball-shoot phase
 
     void Start()
     {
@@ -38,15 +38,20 @@ public class BallManager : MonoBehaviour
     {
         foreach (Player player in GameManager.Instance._players)
         {
-            if (player != null && !player._isGameStarted && player._ballsCount == 1)
+            // Ball-shoot phase
+            if (player != null && !player._isGameStarted && player._startingBall != null)
             {
+                // Ball follows paddle
                 Vector3 paddlePosition = player._paddle.transform.position;
                 Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + _padding, paddlePosition.z);
                 player._startingBall.transform.position = ballPosition;
 
-                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+                // Only Shoot the human player's ball.
+                // The AI player shoots the ball via Agent files.
+                bool isHuman = player == GameManager.Instance._players[0];
+                bool isShoot = Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space);
+                if (isHuman && isShoot)
                 {
-                    player._isGameStarted = true;
                     ShootBall(player);
                 }
             }
@@ -54,31 +59,49 @@ public class BallManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Shoot the ball.
+    /// Shoot the ball and start the game.
     /// 
     /// This method should only be called after balls have been reset and the game has not started.
     /// </summary>
-    /// <param name="player"></param>
+    /// <param name="player">The player.</param>
     public void ShootBall(Player player)
     {
-        if (player._ballsCount == 1)
+        if (!player._isGameStarted && player._startingBall != null)
         {
             player._startingBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, ballSpeed);
         }
+
+        player._isGameStarted = true;
     }
 
+    /// <summary>
+    /// Create and initialize a ball.
+    /// 
+    /// If this newly created ball is the player's only ball, set it to the starting ball.
+    /// </summary>
+    /// <param name="player">The player.</param>
+    /// <param name="ballPrefab">Ball prefab.</param>
     public void CreateBall(Player player, Ball ballPrefab)
     {
+        // Instantiate the ball
         Vector3 paddlePosition = player._paddle.transform.position;
         Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + _padding, paddlePosition.z);
-
-        Ball ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
+        Quaternion ballRotation = Quaternion.identity;
+        Ball ball = Instantiate(ballPrefab, ballPosition, ballRotation) as Ball;
+        // Initialize the ball
         ball.Init(player, player._ballsContainer.transform);
 
-        player._startingBall = ball;
-        player._ballsCount = 1;
+        player._ballsCount++;
+        if (player._ballsCount == 1)
+        {
+            player._startingBall = ball;
+        }
     }
-    
+
+    /// <summary>
+    /// Destroy all balls and reset the ball count.
+    /// </summary>
+    /// <param name="player">The player.</param>
     public void DestroyBalls(Player player)
     {
         for (int i = 0; i < player._ballsContainer.transform.childCount; i++)
@@ -88,6 +111,10 @@ public class BallManager : MonoBehaviour
         player._ballsCount = 0;
     }
 
+    /// <summary>
+    /// Destroy all existing balls and create a single starting ball.
+    /// </summary>
+    /// <param name="player">The player.</param>
     public void ResetBalls(Player player)
     {
         DestroyBalls(player);

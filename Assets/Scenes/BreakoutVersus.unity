@@ -2219,6 +2219,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: PaddleAI
       objectReference: {fileID: 0}
+    - target: {fileID: 8836365857855596021, guid: 795c0fec4a1b03145bcf0c1c70aa5067, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8836365857855596022, guid: 795c0fec4a1b03145bcf0c1c70aa5067, type: 3}
+      propertyPath: MaxStep
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8836365857855596022, guid: 795c0fec4a1b03145bcf0c1c70aa5067, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8836365857855596024, guid: 795c0fec4a1b03145bcf0c1c70aa5067, type: 3}
       propertyPath: m_RootOrder
       value: 3

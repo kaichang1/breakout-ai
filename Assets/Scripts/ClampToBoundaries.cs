@@ -17,7 +17,6 @@ public class ClampToBoundaries : MonoBehaviour
         _maxX = transform.parent.position.x + backgroundWidthHalf - sideWallWidth - objectWidthHalf;
     }
 
-    // LateUpdate is called after all Update functions have been called
     void LateUpdate()
     {
         // Clamp the X position

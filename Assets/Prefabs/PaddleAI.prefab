@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 8836365857855596029}
   - component: {fileID: 8836365857855596031}
   - component: {fileID: 8836365857855595904}
-  - component: {fileID: 8836365857855596023}
   m_Layer: 0
   m_Name: PaddleAI
   m_TagString: Untagged
@@ -283,7 +282,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836365857855595905}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54f1f8f2b2b9df4478232f67b69206bc, type: 3}
   m_Name: 
@@ -299,7 +298,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8836365857855595905}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 863e292b05c9da14cb2c3658c1f77399, type: 3}
   m_Name: 
@@ -369,22 +368,6 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: Demo
   DemonstrationDirectory: Demo
---- !u!114 &8836365857855596023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8836365857855595905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!1 &8836365858626275762
 GameObject:
   m_ObjectHideFlags: 0

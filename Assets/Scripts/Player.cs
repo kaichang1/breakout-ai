@@ -11,17 +11,17 @@ public class Player : MonoBehaviour
     public GameObject victoryScreen;
     public GameObject gameOverScreen;
 
-    internal bool _isGameStarted;
+    internal bool _isGameStarted;  // False if the game is in the ball-shoot phase, else true
 
     internal int _currentLevel;
     internal int _score;
     internal int _lives;
 
     internal Paddle _paddle;
-    internal Ball _startingBall;
-    internal GameObject _ballsContainer;  // Container to hold instantiated balls
-    internal int _ballsCount;  // Number of balls
-    internal GameObject _bricksContainer;  // Container to hold instantiated bricks
+    internal Ball _startingBall;  // Starting ball to shoot out
+    internal GameObject _ballsContainer;  // Container to hold balls in the editor
+    internal int _ballsCount;  // Number of balls remaining
+    internal GameObject _bricksContainer;  // Container to hold bricks in the editor
     internal int _bricksCount;  // Number of bricks remaining in the current level
 
     void Start()

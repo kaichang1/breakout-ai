@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    public static event Action<Brick> OnBrickDestruction;
+    public static event Action<Brick> OnBrickDestruction;  // Subscribed by GameManager and LevelManager
 
     public int initialHp;
 
@@ -23,10 +23,10 @@ public class Brick : MonoBehaviour
     /// Initialize the brick.
     /// </summary>
     /// <param name="owner">The player associated with the brick.</param>
-    /// <param name="containerTransform">The transform component of the parent container.</param>
-    /// <param name="sprite">The brick's sprite image.</param>
-    /// <param name="color">The brick's color.</param>
-    /// <param name="hitpoints">The brick's hitpoints.</param>
+    /// <param name="containerTransform">The player's bricks container.</param>
+    /// <param name="sprite">Brick sprite image.</param>
+    /// <param name="color">Brick color.</param>
+    /// <param name="hitpoints">Brick hitpoints.</param>
     public void Init(Player owner, Transform containerTransform, Sprite sprite, Color color, int hitpoints)
     {
         _player = owner;
@@ -41,6 +41,7 @@ public class Brick : MonoBehaviour
         _hp--;
         if (_hp <= 0)
         {
+            // Destruction logic and invoke the OnBrickDestruction event
             _player._bricksCount--;
             OnBrickDestruction?.Invoke(this);
             ApplyDestructionEffect();
@@ -53,7 +54,7 @@ public class Brick : MonoBehaviour
     }
 
     /// <summary>
-    /// Applies a particle system effect based on the color of the destroyed brick.
+    /// Apply a particle system effect based on the color of the destroyed brick.
     /// </summary>
     private void ApplyDestructionEffect()
     {

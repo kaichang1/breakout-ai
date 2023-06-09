@@ -195,8 +195,8 @@ MonoBehaviour:
   - {r: 1, g: 0.6, b: 1, a: 1}
   - {r: 0.6, g: 0.29803923, b: 1, a: 1}
   _brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
-  _levelsHpFile: LevelsHp
-  _levelsColorsFile: LevelsColors
+  _levelsHpFile: TestLevelsHp
+  _levelsColorsFile: TestLevelsColors
 --- !u!1 &3222801387770236303
 GameObject:
   m_ObjectHideFlags: 0

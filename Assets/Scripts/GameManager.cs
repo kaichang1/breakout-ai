@@ -21,9 +21,9 @@ public class GameManager : MonoBehaviour
 
     public int initialLives;
     public float paddleSpeed;
-    public float paddleHorizontalBounceMultiplier;  // Affects how much the ball bounces left or right during paddle collisions
+    public float paddleHorizontalBounceMultiplier;  // How much the ball bounces left or right during paddle collisions
 
-    [SerializeField] private int _brickPoints;  // Number of points given for each brick hitpoint
+    [SerializeField] private int _brickPoints;  // Number of score points given for each brick hitpoint
 
     internal Player[] _players;  // { human, AI }
 
@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        // Necessary for re-loading game scenes
         Brick.OnBrickDestruction -= UpdateScore;
         Ball.OnBallDeath -= OnBallDeath;
     }
@@ -72,6 +71,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handle ball death logic whenever a ball is lost.
+    /// </summary>
+    /// <param name="ball">Ball that was lost.</param>
     public void OnBallDeath(Ball ball)
     {
         Player player = ball._player;
@@ -91,23 +94,28 @@ public class GameManager : MonoBehaviour
                 BallManager.Instance.ResetBalls(player);
                 //player.paddle.ResetPosition();
 
-                // Pause the game
+                // Enter ball-shoot phase
                 player._isGameStarted = false;
             }
         }
     }
 
+    /// <summary>
+    /// Update the score whenever a brick is destroyed.
+    /// </summary>
+    /// <param name="brick">Brick that was destroyed.</param>
     private void UpdateScore(Brick brick)
     {
         Player player = brick._player;
 
-        player._score += brick.initialHp * GameManager.Instance._brickPoints;
+        player._score += brick.initialHp * _brickPoints;
         UIManager.Instance.UpdateScoreText(player);
     }
 
     /// <summary>
-    /// Reset lives to initialLives and update the UI.
+    /// Reset lives to the initial lives count.
     /// </summary>
+    /// /// <param name="player">The player.</param>
     public void ResetLives(Player player)
     {
         player._lives = initialLives;
@@ -115,25 +123,36 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Reset score to 0 and update the UI.
+    /// Reset score to 0.
     /// </summary>
+    /// /// <param name="player">The player.</param>
     public void ResetScore(Player player)
     {
         player._score = 0;
         UIManager.Instance.UpdateScoreText(player);
     }
 
+    /// <summary>
+    /// Set the game over screen.
+    /// </summary>
+    /// <param name="player">The player.</param>
     private void GameOver(Player player)
     {
         BallManager.Instance.DestroyBalls(player);
         player.gameOverScreen.SetActive(true);
     }
 
+    /// <summary>
+    /// Restart the game.
+    /// </summary>
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    /// <summary>
+    /// Load the main menu.
+    /// </summary>
     public void LoadMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
