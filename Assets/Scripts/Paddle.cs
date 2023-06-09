@@ -41,25 +41,36 @@ public class Paddle : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        BallCollision(collision);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        BallCollision(collision);
+    }
+
+    private void BallCollision(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
-            Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            Vector2 contactPoint = collision.GetContact(0).point;
+            Rigidbody2D ballRb = collision.GetComponent<Rigidbody2D>();
+            Vector2 ballCenter = ballRb.position;
             Vector2 paddleCenter = transform.position;
 
-            Vector2 velocity = collision.relativeVelocity;
-            if (contactPoint.y < paddleCenter.y)
+            Vector2 velocity = ballRb.velocity;
+            if (ballCenter.y < paddleCenter.y)
             {
                 // Side collisions below the paddle midpoint should bounce the ball downwards
-                velocity.x = -velocity.x;
+                float velocityAbsX = Mathf.Abs(velocity.x);
+                velocity.x = ballCenter.x < paddleCenter.x ? -velocityAbsX : velocityAbsX;
                 velocity.y = Mathf.Min(velocity.y, -velocity.y);
             }
             else
             {
                 // Contact point with ball determines how far left/right the ball bounces for top collisions
-                float diff = contactPoint.x - paddleCenter.x;
+                float diff = ballCenter.x - paddleCenter.x;
                 float horizontalSpeed = diff * GameManager.Instance.paddleHorizontalBounceMultiplier;
                 // Top collisions should bounce the ball upwards
                 velocity.x = horizontalSpeed;
