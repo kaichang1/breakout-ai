@@ -133,6 +133,17 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Set the victory screen.
+    /// </summary>
+    /// <param name="player">The player.</param>
+    internal void Victory(Player player)
+    {
+        BallManager.Instance.DestroyBalls(player);
+        UIManager.Instance.UpdateFinalScoreText(player);
+        player.victoryScreen.SetActive(true);
+    }
+
+    /// <summary>
     /// Set the game over screen.
     /// </summary>
     /// <param name="player">The player.</param>

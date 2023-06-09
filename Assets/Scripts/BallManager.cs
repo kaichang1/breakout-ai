@@ -59,22 +59,6 @@ public class BallManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Shoot the ball and start the game.
-    /// 
-    /// This method should only be called after balls have been reset and the game has not started.
-    /// </summary>
-    /// <param name="player">The player.</param>
-    public void ShootBall(Player player)
-    {
-        if (!player._isGameStarted && player._startingBall != null)
-        {
-            player._startingBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, ballSpeed);
-        }
-
-        player._isGameStarted = true;
-    }
-
-    /// <summary>
     /// Create and initialize a ball.
     /// 
     /// If this newly created ball is the player's only ball, set it to the starting ball.
@@ -96,6 +80,22 @@ public class BallManager : MonoBehaviour
         {
             player._startingBall = ball;
         }
+    }
+
+    /// <summary>
+    /// Shoot the ball and start the game.
+    /// 
+    /// This method should only be called after balls have been reset and the game has not started.
+    /// </summary>
+    /// <param name="player">The player.</param>
+    public void ShootBall(Player player)
+    {
+        if (!player._isGameStarted && player._startingBall != null)
+        {
+            player._startingBall.GetComponent<Rigidbody2D>().velocity = new Vector2(0, ballSpeed);
+        }
+
+        player._isGameStarted = true;
     }
 
     /// <summary>

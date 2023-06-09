@@ -75,6 +75,16 @@ public class PaddleAgentTrainer : Agent
     private void OnBrickDestructionReward(Brick brick)
     {
         SetReward(0.1f);
+
+        bool isLevelCompleted = LevelManager.Instance.CheckLevelCompletion(_player);
+        bool isFinalLevel = LevelManager.Instance.CheckFinalLevel(_player);
+        if (isLevelCompleted && isFinalLevel)
+        {
+            // Reset the game and continue training
+            _player.victoryScreen.SetActive(false);
+            _player._isGameStarted = false;
+            EndEpisode();
+        }
     }
 
     private void OnBallDeathReward(Ball obj)

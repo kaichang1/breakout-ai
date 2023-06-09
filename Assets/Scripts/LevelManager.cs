@@ -77,23 +77,28 @@ public class LevelManager : MonoBehaviour
         {
             if (CheckFinalLevel(player))
             {
-                BallManager.Instance.DestroyBalls(player);
-
-                UIManager.Instance.UpdateFinalScoreText(player);
-                player.victoryScreen.SetActive(true);
+                GameManager.Instance.Victory(player);
             }
             else
             {
-                player._currentLevel++;
-
-                GenerateLevel(player, player._currentLevel);
-                UIManager.Instance.UpdateLevelText(player);
-                BallManager.Instance.ResetBalls(player);
-                //player.paddle.ResetPosition();
-
-                player._isGameStarted = false;
+                NextLevel(player);
             }
         }
+    }
+
+    /// <summary>
+    /// Set up the next level.
+    /// </summary>
+    private void NextLevel(Player player)
+    {
+        player._currentLevel++;
+
+        GenerateLevel(player, player._currentLevel);
+        UIManager.Instance.UpdateLevelText(player);
+        BallManager.Instance.ResetBalls(player);
+        //player.paddle.ResetPosition();
+
+        player._isGameStarted = false;
     }
 
     /// <summary>
@@ -101,7 +106,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="player">The player.</param>
     /// <returns>True if the current level has been completed, else false.</returns>
-    private bool CheckLevelCompletion(Player player)
+    internal bool CheckLevelCompletion(Player player)
     {
         return player._bricksCount == 0;
     }
@@ -111,7 +116,7 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     /// <param name="player">The player.</param>
     /// <returns>True if the current level is the final level, else false.</returns>
-    private bool CheckFinalLevel(Player player)
+    internal bool CheckFinalLevel(Player player)
     {
         return player._currentLevel == _levelsHpData.Count;
     }

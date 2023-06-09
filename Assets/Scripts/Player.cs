@@ -36,6 +36,10 @@ public class Player : MonoBehaviour
         if (paddleTransform == null)
         {
             paddleTransform = transform.Find("PaddleAI");
+            if (paddleTransform == null)
+            {
+                paddleTransform = transform.Find("PaddleAITrainer");
+            }
         }
         _paddle = paddleTransform.GetComponent<Paddle>();
 
