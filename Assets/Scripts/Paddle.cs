@@ -15,25 +15,28 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-        // Only move the human player's paddle.
-        // The AI player moves the paddle via Agent files.
-        if (_player == GameManager.Instance._players[0])
+        if (!GameManager.Instance.isGamePaused)
         {
-            if (Input.GetAxisRaw("Mouse X") != 0)  // If the mouse has moved along the X axis
+            // Only move the human player's paddle.
+            // The AI player moves the paddle via Agent files.
+            if (_player == GameManager.Instance._players[0])
             {
-                // Update paddle X position based on mouse X position
-                Vector2 position;
-                position.x = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-                position.y = _paddlePositionInitial.y;
-                transform.position = position;
+                if (Input.GetAxisRaw("Mouse X") != 0)  // If the mouse has moved along the X axis
+                {
+                    // Update paddle X position based on mouse X position
+                    Vector2 position;
+                    position.x = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+                    position.y = _paddlePositionInitial.y;
+                    transform.position = position;
+                }
+                else
+                {
+                    // Update paddle X position based on keyboard horizontal axis input (arrow keys) and speed
+                    Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+                    transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * direction);
+                }
             }
-            else
-            {
-                // Update paddle X position based on keyboard horizontal axis input (arrow keys) and speed
-                Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
-                transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * direction);
-            }
-        }
+        } 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
