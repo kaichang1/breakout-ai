@@ -40,6 +40,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Splash
+    uniqueID: 2273725979
+    locked: 0
   - name: Background
     uniqueID: 2758209807
     locked: 0

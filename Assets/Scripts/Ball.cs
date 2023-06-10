@@ -7,15 +7,23 @@ public class Ball : MonoBehaviour
 
     internal Player _player;
 
+    private SpriteRenderer _sr;
+
+    private void Awake()
+    {
+        _sr = GetComponent<SpriteRenderer>();
+    }
+
     /// <summary>
     /// Initialize the ball.
     /// </summary>
     /// <param name="owner">The player associated with the ball.</param>
     /// <param name="containerTransform">The player's balls container.</param>
-    public void Init(Player owner, Transform containerTransform)
+    public void Init(Player owner, Transform containerTransform, Sprite sprite)
     {
         _player = owner;
         transform.SetParent(containerTransform);
+        _sr.sprite = sprite;
     }
 
     /// <summary>

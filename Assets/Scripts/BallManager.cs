@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BallManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class BallManager : MonoBehaviour
     #endregion
 
     public float ballSpeed;
+    public Sprite[] ballSprites;  // { red ball, blue ball }
 
     [SerializeField] private Ball _ballRedPrefab;
     [SerializeField] private float _padding;  // Padding between ball and paddle during ball-shoot phase
@@ -73,7 +75,9 @@ public class BallManager : MonoBehaviour
         Quaternion ballRotation = Quaternion.identity;
         Ball ball = Instantiate(ballPrefab, ballPosition, ballRotation) as Ball;
         // Initialize the ball
-        ball.Init(player, player._ballsContainer.transform);
+        int i = Array.IndexOf(GameManager.Instance._players, player);
+        Sprite sprite = ballSprites[i];
+        ball.Init(player, player._ballsContainer.transform, sprite);
 
         player._ballsCount++;
         if (player._ballsCount == 1)
