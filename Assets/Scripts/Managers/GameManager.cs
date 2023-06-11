@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _brickPoints;  // Number of score points given for each brick hitpoint
 
     internal Player[] _players;  // { human, AI }
-    internal bool isGamePaused;
+    internal bool isGamePaused;  // Escape menu pauses the game
 
     private void OnEnable()
     {

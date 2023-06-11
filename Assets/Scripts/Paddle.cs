@@ -15,7 +15,7 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-        if (!GameManager.Instance.isGamePaused)
+        if (!GameManager.Instance.isGamePaused && !_player._isPlayerPaused)
         {
             // Only move the human player's paddle.
             // The AI player moves the paddle via Agent files.

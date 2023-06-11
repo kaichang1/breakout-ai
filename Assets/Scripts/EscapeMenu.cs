@@ -10,16 +10,19 @@ public class EscapeMenu : MonoBehaviour
         {
             if (GameManager.Instance.isGamePaused)
             {
-                Resume();
+                CloseMenu();
             }
             else
             {
-                Pause();
+                OpenMenu();
             }
         }
     }
 
-    public void Pause()
+    /// <summary>
+    /// Open the escape menu and pause the game.
+    /// </summary>
+    public void OpenMenu()
     {
         Cursor.visible = true;
 
@@ -28,7 +31,10 @@ public class EscapeMenu : MonoBehaviour
         GameManager.Instance.isGamePaused = true;
     }
 
-    public void Resume()
+    /// <summary>
+    /// Close the escape menu and pause the game.
+    /// </summary>
+    public void CloseMenu()
     {
         Cursor.visible = false;
 
@@ -37,12 +43,18 @@ public class EscapeMenu : MonoBehaviour
         GameManager.Instance.isGamePaused = false;
     }
 
+    /// <summary>
+    /// Restart the game.
+    /// </summary>
     public void Retry()
     {
         Time.timeScale = 1f;
         GameManager.Instance.RestartGame();
     }
 
+    /// <summary>
+    /// Load the main menu scene.
+    /// </summary>
     public void MainMenu()
     {
         Time.timeScale = 1f;

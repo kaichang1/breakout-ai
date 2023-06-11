@@ -140,7 +140,7 @@ MonoBehaviour:
   ballSprites:
   - {fileID: 21300000, guid: ed0d1187cf7b88c44b08e6e248430499, type: 3}
   - {fileID: 21300000, guid: 288bda76696a5154b885b60bfaf54bec, type: 3}
-  _ballRedPrefab: {fileID: 8328126268780514528, guid: b8d9c7b641af9914196d6a5af94d1dd6, type: 3}
+  _ballPrefab: {fileID: 8328126268780514528, guid: b8d9c7b641af9914196d6a5af94d1dd6, type: 3}
   _padding: 0.26
 --- !u!1 &3222801387167880995
 GameObject:

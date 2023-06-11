@@ -19,12 +19,9 @@ public class ClampToBoundaries : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!GameManager.Instance.isGamePaused)
-        {
-            // Clamp the X position
-            Vector2 newPosition = transform.position;
-            newPosition.x = Mathf.Clamp(newPosition.x, _minX, _maxX);
-            transform.position = newPosition;
-        }
+        // Clamp the X position
+        Vector2 newPosition = transform.position;
+        newPosition.x = Mathf.Clamp(newPosition.x, _minX, _maxX);
+        transform.position = newPosition;
     }
 }

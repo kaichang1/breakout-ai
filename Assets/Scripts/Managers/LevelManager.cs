@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -81,23 +82,30 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                NextLevel(player);
+                StartCoroutine(LoadNextLevel(player));
             }
         }
     }
 
     /// <summary>
-    /// Set up the next level.
+    /// Play level change animation and set up the next level.
     /// </summary>
-    private void NextLevel(Player player)
+    /// <param name="player">The player.</param>
+    /// <returns></returns>
+    private IEnumerator LoadNextLevel(Player player)
     {
-        player._currentLevel++;
+        BallManager.Instance.DestroyBalls(player);
 
+        yield return StartCoroutine(AnimationManager.Instance.PlayTransitionStart(player));
+
+        player._currentLevel++;
         GenerateLevel(player, player._currentLevel);
         UIManager.Instance.UpdateLevelText(player);
-        BallManager.Instance.ResetBalls(player);
-        //player.paddle.ResetPosition();
+        player._paddle.ResetPosition();
 
+        yield return StartCoroutine(AnimationManager.Instance.PlayTransitionEnd(player));
+
+        BallManager.Instance.CreateBall(player);
         player._isGameStarted = false;
     }
 

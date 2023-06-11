@@ -22,7 +22,7 @@ public class BallManager : MonoBehaviour
     public float ballSpeed;
     public Sprite[] ballSprites;  // { red ball, blue ball }
 
-    [SerializeField] private Ball _ballRedPrefab;
+    [SerializeField] private Ball _ballPrefab;
     [SerializeField] private float _padding;  // Padding between ball and paddle during ball-shoot phase
 
     void Start()
@@ -31,19 +31,19 @@ public class BallManager : MonoBehaviour
         {
             if (player != null)
             {
-                CreateBall(player, _ballRedPrefab);
+                CreateBall(player);
             }
         }
     }
 
     private void LateUpdate()
     {
-        if (!GameManager.Instance.isGamePaused)
+        foreach (Player player in GameManager.Instance._players)
         {
-            foreach (Player player in GameManager.Instance._players)
+            if (player != null && !GameManager.Instance.isGamePaused && !player._isPlayerPaused)
             {
                 // Ball-shoot phase
-                if (player != null && !player._isGameStarted && player._startingBall != null)
+                if (!player._isGameStarted && player._startingBall != null)
                 {
                     // Ball follows paddle
                     Vector3 paddlePosition = player._paddle.transform.position;
@@ -70,13 +70,13 @@ public class BallManager : MonoBehaviour
     /// </summary>
     /// <param name="player">The player.</param>
     /// <param name="ballPrefab">Ball prefab.</param>
-    public void CreateBall(Player player, Ball ballPrefab)
+    public void CreateBall(Player player)
     {
         // Instantiate the ball
         Vector3 paddlePosition = player._paddle.transform.position;
         Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + _padding, paddlePosition.z);
         Quaternion ballRotation = Quaternion.identity;
-        Ball ball = Instantiate(ballPrefab, ballPosition, ballRotation) as Ball;
+        Ball ball = Instantiate(_ballPrefab, ballPosition, ballRotation) as Ball;
         // Initialize the ball
         int i = Array.IndexOf(GameManager.Instance._players, player);
         Sprite sprite = ballSprites[i];
@@ -125,6 +125,6 @@ public class BallManager : MonoBehaviour
     public void ResetBalls(Player player)
     {
         DestroyBalls(player);
-        CreateBall(player, _ballRedPrefab);
+        CreateBall(player);
     }
 }

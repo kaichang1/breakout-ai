@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public GameObject gameOverScreen;
 
     internal bool _isGameStarted;  // False if the game is in the ball-shoot phase, else true
+    internal bool _isPlayerPaused;  // Player's game is paused during player-specific animations such as level completion transitions
 
     internal int _currentLevel;
     internal int _score;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _isGameStarted = false;
+        _isPlayerPaused = false;
 
         _currentLevel = LevelManager.Instance.initialLevel;
         _score = 0;
