@@ -19,8 +19,11 @@ public class AnimationManager : MonoBehaviour
     }
     #endregion
 
-    public GameObject transitionStart;
-    public GameObject transitionEnd;
+    public GameObject transitionStartHuman;
+    public GameObject transitionEndHuman;
+
+    public GameObject transitionStartAI;
+    public GameObject transitionEndAI;
 
     public float transitionTime;
 
@@ -36,9 +39,18 @@ public class AnimationManager : MonoBehaviour
     {
         player._isPlayerPaused = true;
 
-        transitionStart.SetActive(true);
-        yield return new WaitForSeconds(transitionTime);
-        transitionStart.SetActive(false);
+        if (player == GameManager.Instance._players[0])
+        {
+            transitionStartHuman.SetActive(true);
+            yield return new WaitForSeconds(transitionTime);
+            transitionStartHuman.SetActive(false);
+        }
+        else
+        {
+            transitionStartAI.SetActive(true);
+            yield return new WaitForSeconds(transitionTime);
+            transitionStartAI.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -51,9 +63,18 @@ public class AnimationManager : MonoBehaviour
     /// <returns></returns>
     internal IEnumerator PlayTransitionEnd(Player player)
     {
-        transitionEnd.SetActive(true);
-        yield return new WaitForSeconds(transitionTime);
-        transitionEnd.SetActive(false);
+        if (player == GameManager.Instance._players[0])
+        {
+            transitionEndHuman.SetActive(true);
+            yield return new WaitForSeconds(transitionTime);
+            transitionEndHuman.SetActive(false);
+        }
+        else
+        {
+            transitionEndAI.SetActive(true);
+            yield return new WaitForSeconds(transitionTime);
+            transitionEndAI.SetActive(false);
+        }
 
         player._isPlayerPaused = false;
     }
