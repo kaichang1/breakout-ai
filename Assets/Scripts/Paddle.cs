@@ -25,7 +25,7 @@ public class Paddle : MonoBehaviour
                 {
                     // Update paddle X position based on mouse horizontal movement
                     Vector3 movement = new Vector3(Input.GetAxis("Mouse X"), 0, 0);
-                    transform.Translate(GameManager.Instance.paddleSpeedMouse * Time.deltaTime * movement);
+                    transform.Translate(GameManager.Instance.paddleSpeedMouse * movement);
 
                 }
                 else

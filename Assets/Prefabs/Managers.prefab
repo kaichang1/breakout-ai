@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLives: 3
-  paddleSpeedMouse: 20
+  paddleSpeedMouse: 0.15
   paddleSpeedKeyboard: 5
   paddleHorizontalBounceMultiplier: 7
   escapeMenu: {fileID: 0}
