@@ -105,7 +105,10 @@ public class LevelManager : MonoBehaviour
 
         yield return StartCoroutine(AnimationManager.Instance.PlayTransitionEnd(player));
 
-        StartCoroutine(GameManager.Instance.ResetMousePosition());
+        if (player == GameManager.Instance._players[0])
+        {
+            StartCoroutine(GameManager.Instance.ResetMousePosition());
+        }
 
         BallManager.Instance.CreateBall(player);
         player._isGameStarted = false;

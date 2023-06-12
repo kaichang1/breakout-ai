@@ -54,10 +54,10 @@ public class GameManager : MonoBehaviour
         GameObject human = GameObject.Find("Human");
         if (human != null)
         {
+            _players[0] = human.GetComponent<Player>();
+
             Cursor.visible = false;
             StartCoroutine(ResetMousePosition());
-
-            _players[0] = human.GetComponent<Player>();
         }
 
         GameObject AI = GameObject.Find("AI");
@@ -179,6 +179,8 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// Reset the mouse position to the center of the screen.
+    /// 
+    /// This method should only be called for the human player.
     /// </summary>
     internal IEnumerator ResetMousePosition()
     {
