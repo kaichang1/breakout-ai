@@ -223,8 +223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLives: 3
-  paddleSpeed: 5
+  paddleSpeedMouse: 20
+  paddleSpeedKeyboard: 5
   paddleHorizontalBounceMultiplier: 7
+  escapeMenu: {fileID: 0}
   _brickPoints: 50
 --- !u!1 &3222801386286101883
 GameObject:

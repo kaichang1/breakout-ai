@@ -21,8 +21,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public int initialLives;
-    public float paddleSpeed;
+    public float paddleSpeedMouse;
+    public float paddleSpeedKeyboard;
     public float paddleHorizontalBounceMultiplier;  // How much the ball bounces left or right during paddle collisions
+
+    public GameObject escapeMenu;
 
     [SerializeField] private int _brickPoints;  // Number of score points given for each brick hitpoint
 
@@ -147,6 +150,7 @@ public class GameManager : MonoBehaviour
         if (player == GameManager.Instance._players[0])
         {
             Cursor.visible = true;
+            escapeMenu.SetActive(false);
         }
 
         BallManager.Instance.DestroyBalls(player);
@@ -163,6 +167,7 @@ public class GameManager : MonoBehaviour
         if (player == GameManager.Instance._players[0])
         {
             Cursor.visible = true;
+            escapeMenu.SetActive(false);
         }
 
         BallManager.Instance.DestroyBalls(player);

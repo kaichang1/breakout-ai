@@ -252,6 +252,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3222801386003882989, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
+      propertyPath: escapeMenu
+      value: 
+      objectReference: {fileID: 2072368578}
     - target: {fileID: 3222801387770236303, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -1039,5 +1043,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasEscapeMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 5944567124949916858, guid: b9aacec75c127bd498824c6b740b4f98, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9aacec75c127bd498824c6b740b4f98, type: 3}
+--- !u!1 &2072368578 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5944567124949916858, guid: b9aacec75c127bd498824c6b740b4f98, type: 3}
+  m_PrefabInstance: {fileID: 2072368577}
+  m_PrefabAsset: {fileID: 0}
