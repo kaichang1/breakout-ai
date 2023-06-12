@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 BallManager.Instance.ResetBalls(player);
-                //player.paddle.ResetPosition();
 
                 // Enter ball-shoot phase
                 player._isGameStarted = false;
