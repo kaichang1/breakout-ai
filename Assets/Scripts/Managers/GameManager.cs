@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         if (human != null)
         {
             Cursor.visible = false;
+            StartCoroutine(ResetMousePosition());
 
             _players[0] = human.GetComponent<Player>();
         }
@@ -174,5 +176,15 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    /// <summary>
+    /// Reset the mouse position to the center of the screen.
+    /// </summary>
+    internal IEnumerator ResetMousePosition()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        yield return null;  // Must wait one frame for the mouse position to reset
+        Cursor.lockState = CursorLockMode.None;
     }
 }

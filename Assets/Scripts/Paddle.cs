@@ -36,7 +36,7 @@ public class Paddle : MonoBehaviour
                     transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * direction);
                 }
             }
-        } 
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

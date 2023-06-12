@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialLives: 3
   paddleSpeed: 5
+  paddleSpeedMouse: 20
   paddleHorizontalBounceMultiplier: 7
   _brickPoints: 50
 --- !u!1 &3222801386286101883
