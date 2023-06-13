@@ -23,10 +23,11 @@ public class Paddle : MonoBehaviour
             {
                 if (Input.GetAxisRaw("Mouse X") != 0)  // If the mouse has moved along the X axis
                 {
-                    // Update paddle X position based on mouse horizontal movement
-                    Vector3 movement = new Vector3(Input.GetAxis("Mouse X"), 0, 0);
-                    transform.Translate(GameManager.Instance.paddleSpeedMouse * movement);
-
+                    // Update paddle X position based on mouse X position
+                    Vector2 position;
+                    position.x = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+                    position.y = _paddlePositionInitial.y;
+                    transform.position = position;
                 }
                 else
                 {

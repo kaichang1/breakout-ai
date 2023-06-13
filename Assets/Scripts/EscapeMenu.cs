@@ -24,8 +24,6 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void OpenMenu()
     {
-        Cursor.visible = true;
-
         Time.timeScale = 0f;
         escapeMenu.SetActive(true);
         GameManager.Instance.isGamePaused = true;
@@ -36,8 +34,6 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void CloseMenu()
     {
-        Cursor.visible = false;
-
         Time.timeScale = 1f;
         escapeMenu.SetActive(false);
         GameManager.Instance.isGamePaused = false;

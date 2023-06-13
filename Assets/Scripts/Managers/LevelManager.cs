@@ -101,14 +101,8 @@ public class LevelManager : MonoBehaviour
         player._currentLevel++;
         GenerateLevel(player, player._currentLevel);
         UIManager.Instance.UpdateLevelText(player);
-        player._paddle.ResetPosition();
 
         yield return StartCoroutine(AnimationManager.Instance.PlayTransitionEnd(player));
-
-        if (player == GameManager.Instance._players[0])
-        {
-            StartCoroutine(GameManager.Instance.ResetMousePosition());
-        }
 
         BallManager.Instance.CreateBall(player);
         player._isGameStarted = false;

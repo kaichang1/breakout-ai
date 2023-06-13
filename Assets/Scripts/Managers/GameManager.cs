@@ -58,9 +58,6 @@ public class GameManager : MonoBehaviour
         if (human != null)
         {
             _players[0] = human.GetComponent<Player>();
-
-            Cursor.visible = false;
-            StartCoroutine(ResetMousePosition());
         }
 
         GameObject AI = GameObject.Find("AI");
@@ -149,7 +146,6 @@ public class GameManager : MonoBehaviour
     {
         if (player == GameManager.Instance._players[0])
         {
-            Cursor.visible = true;
             escapeMenu.SetActive(false);
         }
 
@@ -166,7 +162,6 @@ public class GameManager : MonoBehaviour
     {
         if (player == GameManager.Instance._players[0])
         {
-            Cursor.visible = true;
             escapeMenu.SetActive(false);
         }
 
@@ -180,17 +175,5 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    /// <summary>
-    /// Reset the mouse position to the center of the screen.
-    /// 
-    /// This method should only be called for the human player.
-    /// </summary>
-    internal IEnumerator ResetMousePosition()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        yield return null;  // Must wait one frame for the mouse position to reset
-        Cursor.lockState = CursorLockMode.None;
     }
 }
