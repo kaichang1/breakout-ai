@@ -33,7 +33,7 @@ public class Paddle : MonoBehaviour
                 {
                     // Update paddle X position based on keyboard horizontal axis input (arrow keys)
                     Vector3 movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
-                    transform.Translate(GameManager.Instance.paddleSpeedKeyboard * Time.deltaTime * movement);
+                    transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * movement);
                 }
             }
         }
@@ -64,6 +64,11 @@ public class Paddle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball"))
         {
+            if (_player == GameManager.Instance._players[0])
+            {
+                AudioManager.Instance.Play(AudioManager.paddleBounce);
+            }
+
             Rigidbody2D ballRb = collision.GetComponent<Rigidbody2D>();
             Vector2 ballCenter = ballRb.position;
             Vector2 paddleCenter = transform.position;

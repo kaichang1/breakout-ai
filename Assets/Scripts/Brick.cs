@@ -38,6 +38,8 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        CollisionSFX();
+
         _hp--;
         if (_hp <= 0)
         {
@@ -61,5 +63,22 @@ public class Brick : MonoBehaviour
         GameObject effect = Instantiate(_destructionEffect.gameObject, transform.position, Quaternion.identity);
         ParticleSystem.MainModule mm = effect.GetComponent<ParticleSystem>().main;
         mm.startColor = _sr.color;
+    }
+
+    /// <summary>
+    /// Play a sound effect for human player collisions.
+    /// </summary>
+    private void CollisionSFX()
+    {
+        if (_player == GameManager.Instance._players[0])
+        {
+            // Do not play SFX for the last hp of the last brick since level change or victory SFX will be played
+            if (_player._bricksCount == 1 && _hp == 1)
+            {
+                return;
+            }
+
+            AudioManager.Instance.Play(AudioManager.brickHit);
+        }
     }
 }

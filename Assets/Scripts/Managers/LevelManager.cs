@@ -94,6 +94,11 @@ public class LevelManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator LoadNextLevel(Player player)
     {
+        if (player == GameManager.Instance._players[0])
+        {
+            AudioManager.Instance.Play(AudioManager.levelChange);
+        }
+
         BallManager.Instance.DestroyBalls(player);
 
         yield return StartCoroutine(AnimationManager.Instance.PlayTransitionStart(player));

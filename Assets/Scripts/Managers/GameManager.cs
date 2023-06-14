@@ -21,8 +21,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public int initialLives;
-    public float paddleSpeedMouse;
-    public float paddleSpeedKeyboard;
+    public float paddleSpeed;
     public float paddleHorizontalBounceMultiplier;  // How much the ball bounces left or right during paddle collisions
 
     public GameObject escapeMenu;
@@ -147,6 +146,7 @@ public class GameManager : MonoBehaviour
         if (player == GameManager.Instance._players[0])
         {
             escapeMenu.SetActive(false);
+            AudioManager.Instance.Play(AudioManager.victory);
         }
 
         BallManager.Instance.DestroyBalls(player);
@@ -163,6 +163,7 @@ public class GameManager : MonoBehaviour
         if (player == GameManager.Instance._players[0])
         {
             escapeMenu.SetActive(false);
+            AudioManager.Instance.Play(AudioManager.gameOver);
         }
 
         BallManager.Instance.DestroyBalls(player);

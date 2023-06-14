@@ -3,9 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
-    private static string _mainMenu = "MainMenu";
-    private static string _singlePlayer = "Breakout";
-    private static string _versusAI = "BreakoutVersus";
+    internal static string _mainMenu = "MainMenu";
+    internal static string _singlePlayer = "Breakout";
+    internal static string _versusAI = "BreakoutVersus";
 
     public static void LoadMainMenu()
     {

@@ -52,7 +52,7 @@ public class PaddleAgentTrainer : Agent
     {
         // Update paddle X position
         float moveX = actions.ContinuousActions[0];
-        transform.Translate(GameManager.Instance.paddleSpeedKeyboard * Time.deltaTime * new Vector3(moveX, 0, 0));
+        transform.Translate(GameManager.Instance.paddleSpeed * Time.deltaTime * new Vector3(moveX, 0, 0));
 
         // Shoot the ball
         int shoot = actions.DiscreteActions[0];

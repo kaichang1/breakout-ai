@@ -33,6 +33,25 @@ public class Ball : MonoBehaviour
     /// OnBallDeath event.
     /// </summary>
     public void Death() {
+        DeathSFX();
+
         OnBallDeath?.Invoke(this);
+    }
+
+    /// <summary>
+    /// Play a sound effect for human player ball deaths.
+    /// </summary>
+    private void DeathSFX()
+    {
+        if (_player == GameManager.Instance._players[0])
+        {
+            // Do not play SFX for the last ball of the last life since game over SFX will be played
+            if (_player._ballsCount == 1 && _player._lives == 1)
+            {
+                return;
+            }
+
+            AudioManager.Instance.Play(AudioManager.ballDeath);
+        }
     }
 }

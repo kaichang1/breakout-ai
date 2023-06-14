@@ -208,7 +208,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3222801387770236304}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3222801386003882989
 MonoBehaviour:
@@ -223,8 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLives: 3
-  paddleSpeedMouse: 0.15
-  paddleSpeedKeyboard: 5
+  paddleSpeed: 5
   paddleHorizontalBounceMultiplier: 7
   escapeMenu: {fileID: 0}
   _brickPoints: 50
@@ -258,7 +257,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3222801387770236304}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3222801386286101885
 MonoBehaviour:
@@ -302,7 +301,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3222801387770236304}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3222801386361007313
 MonoBehaviour:
@@ -352,7 +351,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3222801387770236304}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3222801387167880997
 MonoBehaviour:
@@ -378,8 +377,8 @@ MonoBehaviour:
   - {r: 1, g: 0.6, b: 1, a: 1}
   - {r: 0.6, g: 0.29803923, b: 1, a: 1}
   _brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
-  _levelsHpFile: TestLevelsHp
-  _levelsColorsFile: TestLevelsColors
+  _levelsHpFile: LevelsHp
+  _levelsColorsFile: LevelsColors
 --- !u!1 &3222801387770236303
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +408,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 529621626088809228}
+  - {fileID: 3848801833437617868}
   - {fileID: 6672520674351004865}
   - {fileID: 3222801386003882988}
   - {fileID: 3222801387167880996}
@@ -629,6 +629,91 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &3848801833437617866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3848801833437617868}
+  - component: {fileID: 3848801833437617871}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3848801833437617868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848801833437617866}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3222801387770236304}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3848801833437617871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848801833437617866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31577e6e9530c7e40846e60798e3073f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: BackgroundMusicMainMenu
+    clip: {fileID: 8300000, guid: 55b4b264b4d12604e88872278aff7273, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: BackgroundMusicBreakout
+    clip: {fileID: 8300000, guid: 4e1221447eba80546834f3e3428dbe1d, type: 3}
+    volume: 0.6
+    pitch: 1
+    loop: 1
+  - name: PaddleBounce
+    clip: {fileID: 8300000, guid: 3a464228a349ab44ba9dd3cc0404d9ed, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+  - name: BrickHit
+    clip: {fileID: 8300000, guid: 3a464228a349ab44ba9dd3cc0404d9ed, type: 3}
+    volume: 0.8
+    pitch: 1.5
+    loop: 0
+  - name: LevelChange
+    clip: {fileID: 8300000, guid: 63de2c8ca7032484b8da220a691f2f97, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+  - name: BallDeath
+    clip: {fileID: 8300000, guid: bc2dba04981b16243a40155a83f2e1db, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+  - name: Victory
+    clip: {fileID: 8300000, guid: c2c50dd4565b901488a5f36c52bac168, type: 3}
+    volume: 0.9
+    pitch: 1
+    loop: 0
+  - name: GameOver
+    clip: {fileID: 8300000, guid: e4c1df1bf31ea8a4a9595dd26b4e5ec3, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
 --- !u!1 &5039994959980773400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1250,7 @@ Transform:
   - {fileID: 5588445102564034696}
   - {fileID: 4079751732708422930}
   m_Father: {fileID: 3222801387770236304}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3551575195848497095
 MonoBehaviour:
