@@ -208,7 +208,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3222801387770236304}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3222801386003882989
 MonoBehaviour:
@@ -409,8 +409,8 @@ Transform:
   m_Children:
   - {fileID: 529621626088809228}
   - {fileID: 3848801833437617868}
-  - {fileID: 6672520674351004865}
   - {fileID: 3222801386003882988}
+  - {fileID: 6672520674351004865}
   - {fileID: 3222801387167880996}
   - {fileID: 3222801386361007312}
   - {fileID: 3222801386286101884}
@@ -1250,7 +1250,7 @@ Transform:
   - {fileID: 5588445102564034696}
   - {fileID: 4079751732708422930}
   m_Father: {fileID: 3222801387770236304}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3551575195848497095
 MonoBehaviour:
