@@ -53,8 +53,8 @@ public class BallManager : MonoBehaviour
                     // Only Shoot the human player's ball.
                     // The AI player shoots the ball via Agent files.
                     bool isHumanPlayer = player == GameManager.Instance._players[0];
-                    bool isShoot = Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space);
-                    if (isHumanPlayer && isShoot)
+                    bool isShoot = Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.Space);
+                    if (isHumanPlayer && isShoot && !GameSettings.Instance.isIgnoreMouseClicks)
                     {
                         ShootBall(player);
                     }

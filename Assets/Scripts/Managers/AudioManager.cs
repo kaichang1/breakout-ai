@@ -55,6 +55,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Play an audio clip.
+    /// </summary>
+    /// <param name="name">The name of the audio clip.</param>
     internal void Play(string name)
     {
         Sound sound = Array.Find(sounds, sound => sound.name == name);

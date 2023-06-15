@@ -177,4 +177,17 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    /// <summary>
+    /// Ignore mouse clicks for one frame.
+    /// 
+    /// Typically called when the user clicks on a button so that other on-click events are ignored.
+    /// </summary>
+    /// <returns></returns>
+    internal IEnumerator TemporarilyIgnoreMouseClicks()
+    {
+        GameSettings.Instance.isIgnoreMouseClicks = true;
+        yield return null;  // Wait one frame
+        GameSettings.Instance.isIgnoreMouseClicks = false;
+    }
 }

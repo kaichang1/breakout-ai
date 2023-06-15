@@ -10,7 +10,7 @@ public class Mute : MonoBehaviour
 
     private void Start()
     {
-        if (GameSettings.Instance.muted)
+        if (GameSettings.Instance.isMuted)
         {
             icon.sprite = musicOffSprite;
         }
@@ -20,31 +20,42 @@ public class Mute : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Toggle audio muting and update the mute icon.
+    /// </summary>
     public void Toggle()
     {
-        if (GameSettings.Instance.muted)
+        StartCoroutine(GameManager.Instance.TemporarilyIgnoreMouseClicks());
+
+        if (GameSettings.Instance.isMuted)
         {
             UnmuteAudio();
 
-            GameSettings.Instance.muted = false;
+            GameSettings.Instance.isMuted = false;
             icon.sprite = musicOnSprite;
         }
         else
         {
             MuteAudio();
 
-            GameSettings.Instance.muted = true;
+            GameSettings.Instance.isMuted = true;
             icon.sprite = musicOffSprite;
         }
     }
 
+    /// <summary>
+    /// Mute all game audio.
+    /// </summary>
     public void MuteAudio()
     {
-        AudioListener.pause = true;
+        AudioListener.volume = 0f;
     }
 
+    /// <summary>
+    /// Unmute all game audio.
+    /// </summary>
     public void UnmuteAudio()
     {
-        AudioListener.pause = false;
+        AudioListener.volume = 1f;
     }
 }

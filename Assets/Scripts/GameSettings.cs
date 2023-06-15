@@ -19,10 +19,12 @@ public class GameSettings : MonoBehaviour
     }
     #endregion
 
-    internal bool muted;
+    internal bool isMuted;
+    internal bool isIgnoreMouseClicks;
 
     private void Start()
     {
-        muted = false;
+        isMuted = false;
+        isIgnoreMouseClicks = false;
     }
 }
