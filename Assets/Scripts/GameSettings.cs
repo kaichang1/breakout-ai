@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameSettings : MonoBehaviour
 {
@@ -22,9 +23,18 @@ public class GameSettings : MonoBehaviour
     internal bool isMuted;
     internal bool isIgnoreMouseClicks;
 
-    private void Start()
+    void OnEnable()
     {
-        isMuted = false;
-        isIgnoreMouseClicks = false;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        isIgnoreMouseClicks = false;  // Ensure mouse clicks are activated at the start of every scene load
+    }
+
+    void Start()
+    {
+        isMuted = false;  // Game starts off unmuted
     }
 }

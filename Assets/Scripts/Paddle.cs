@@ -4,7 +4,7 @@ public class Paddle : MonoBehaviour
 {
     internal Player _player;
 
-    private Vector3 _paddlePositionInitial;
+    internal Vector3 _paddlePositionInitial;
 
     void Start()
     {

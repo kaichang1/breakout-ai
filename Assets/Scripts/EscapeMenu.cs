@@ -46,8 +46,6 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void Retry()
     {
-        StartCoroutine(GameManager.Instance.TemporarilyIgnoreMouseClicks());
-
         Time.timeScale = 1f;
         GameManager.Instance.RestartGame();
     }
@@ -57,8 +55,6 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void MainMenu()
     {
-        StartCoroutine(GameManager.Instance.TemporarilyIgnoreMouseClicks());
-
         Time.timeScale = 1f;
         SceneController.LoadMainMenu();
     }
