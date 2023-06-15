@@ -312,7 +312,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 39151e90cd7db85448a36e5c7a19ece6, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: My Behavior
@@ -349,8 +349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Record: 0
   NumStepsToRecord: 0
-  DemonstrationName: Demo
-  DemonstrationDirectory: Demo
+  DemonstrationName: AgentDemo
+  DemonstrationDirectory: Demos
 --- !u!1 &8836365858626275762
 GameObject:
   m_ObjectHideFlags: 0

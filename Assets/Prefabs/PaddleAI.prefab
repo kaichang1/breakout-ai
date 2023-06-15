@@ -349,8 +349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Record: 0
   NumStepsToRecord: 0
-  DemonstrationName: Demo
-  DemonstrationDirectory: Demo
+  DemonstrationName: AgentDemo
+  DemonstrationDirectory: Demos
 --- !u!1 &8836365858626275762
 GameObject:
   m_ObjectHideFlags: 0
