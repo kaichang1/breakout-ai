@@ -686,17 +686,17 @@ MonoBehaviour:
     loop: 1
   - name: PaddleBounce
     clip: {fileID: 8300000, guid: 3a464228a349ab44ba9dd3cc0404d9ed, type: 3}
-    volume: 0.8
+    volume: 0.7
     pitch: 1
     loop: 0
   - name: BrickHit
     clip: {fileID: 8300000, guid: 3a464228a349ab44ba9dd3cc0404d9ed, type: 3}
-    volume: 0.8
+    volume: 0.7
     pitch: 1.5
     loop: 0
   - name: LevelChange
     clip: {fileID: 8300000, guid: 63de2c8ca7032484b8da220a691f2f97, type: 3}
-    volume: 1
+    volume: 0.9
     pitch: 1
     loop: 0
   - name: BallDeath
@@ -711,7 +711,7 @@ MonoBehaviour:
     loop: 0
   - name: GameOver
     clip: {fileID: 8300000, guid: e4c1df1bf31ea8a4a9595dd26b4e5ec3, type: 3}
-    volume: 1
+    volume: 0.9
     pitch: 1
     loop: 0
 --- !u!1 &5039994959980773400
