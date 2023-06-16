@@ -41,12 +41,20 @@ public class Paddle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BallCollision(collision);
+        // Apply ball collision logic only after the ball-shoot phase
+        if (_player._isGameStarted && collision.gameObject.CompareTag("Ball"))
+        {
+            BallCollision(collision);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        BallCollision(collision);
+        // Apply ball collision logic only after the ball-shoot phase
+        if (_player._isGameStarted && collision.gameObject.CompareTag("Ball"))
+        {
+            BallCollision(collision);
+        }
     }
 
     /// <summary>
@@ -62,40 +70,37 @@ public class Paddle : MonoBehaviour
     /// <param name="collision">Collision object's collider.</param>
     private void BallCollision(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Ball"))
+        if (_player == GameManager.Instance._players[0])
         {
-            if (_player == GameManager.Instance._players[0])
-            {
-                AudioManager.Instance.Play(AudioManager.paddleBounce);
-            }
-
-            Rigidbody2D ballRb = collision.GetComponent<Rigidbody2D>();
-            Vector2 ballCenter = ballRb.position;
-            Vector2 paddleCenter = transform.position;
-
-            Vector2 velocity = ballRb.velocity;
-            // Collisions below the paddle midpoint (on the sides)
-            if (ballCenter.y < paddleCenter.y)
-            {
-                // Bounce the ball downwards in the opposite X direction
-                float velocityAbsX = Mathf.Abs(velocity.x);
-                velocity.x = ballCenter.x < paddleCenter.x ? -velocityAbsX : velocityAbsX;
-                velocity.y = Mathf.Min(velocity.y, -velocity.y);
-            }
-            // Top collisions
-            else
-            {
-                // Contact point with ball determines how far left/right the ball bounces
-                float diff = ballCenter.x - paddleCenter.x;
-                float horizontalSpeed = diff * GameManager.Instance.paddleHorizontalBounceMultiplier;
-                // Bounce the ball upwards and to the left/right depending on the location of contact
-                velocity.x = horizontalSpeed;
-                velocity.y = Mathf.Max(velocity.y, -velocity.y);
-            }
-            // Ensure that the velocity vector's magnitude (speed) equals the ballSpeed
-            velocity = velocity.normalized * BallManager.Instance.ballSpeed;
-            ballRb.velocity = velocity;
+            AudioManager.Instance.Play(AudioManager.paddleBounce);
         }
+
+        Rigidbody2D ballRb = collision.GetComponent<Rigidbody2D>();
+        Vector2 ballCenter = ballRb.position;
+        Vector2 paddleCenter = transform.position;
+
+        Vector2 velocity = ballRb.velocity;
+        // Collisions below the paddle midpoint (on the sides)
+        if (ballCenter.y < paddleCenter.y)
+        {
+            // Bounce the ball downwards in the opposite X direction
+            float velocityAbsX = Mathf.Abs(velocity.x);
+            velocity.x = ballCenter.x < paddleCenter.x ? -velocityAbsX : velocityAbsX;
+            velocity.y = Mathf.Min(velocity.y, -velocity.y);
+        }
+        // Top collisions
+        else
+        {
+            // Contact point with ball determines how far left/right the ball bounces
+            float diff = ballCenter.x - paddleCenter.x;
+            float horizontalSpeed = diff * GameManager.Instance.paddleHorizontalBounceMultiplier;
+            // Bounce the ball upwards and to the left/right depending on the location of contact
+            velocity.x = horizontalSpeed;
+            velocity.y = Mathf.Max(velocity.y, -velocity.y);
+        }
+        // Ensure that the velocity vector's magnitude (speed) equals the ballSpeed
+        velocity = velocity.normalized * BallManager.Instance.ballSpeed;
+        ballRb.velocity = velocity;
     }
 
     /// <summary>
