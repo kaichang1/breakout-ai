@@ -663,6 +663,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CanvasHelpScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 1679297309408645148, guid: 03106abc776e3804bb16dde9537c8716, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 1679297309408645151, guid: 03106abc776e3804bb16dde9537c8716, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1177,6 +1181,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5944567124949916857, guid: b9aacec75c127bd498824c6b740b4f98, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 5944567124949916858, guid: b9aacec75c127bd498824c6b740b4f98, type: 3}
       propertyPath: m_Name
       value: CanvasEscapeMenu

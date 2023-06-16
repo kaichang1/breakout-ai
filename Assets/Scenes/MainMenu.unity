@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5088196533882526760, guid: 1df73e5f049966642b2ea450210e3268, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 956710410}
     - target: {fileID: 5088196533882526763, guid: 1df73e5f049966642b2ea450210e3268, type: 3}
       propertyPath: m_Name
       value: CanvasMain
