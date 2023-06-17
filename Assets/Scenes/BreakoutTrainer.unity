@@ -252,6 +252,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1746935139131340383, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 3051132125839722617, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     - target: {fileID: 3222801386003882989, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
       propertyPath: escapeMenu
       value: 
@@ -308,6 +316,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4193937318123044813, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 8271771800295749872, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 076b4e4eadea2d04184da9dfce4c695e, type: 3}
 --- !u!114 &119621939 stripped
