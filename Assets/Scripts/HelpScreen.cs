@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HelpScreen : MonoBehaviour
 {
-    public int waitTime;  // Time to wait before showing help screens
+    public int waitTime;  // Minimum amount of time to show the initial help screen
 
     public GameObject movementScreen;
     public GameObject shootScreen;
@@ -23,7 +23,7 @@ public class HelpScreen : MonoBehaviour
     }
 
     /// <summary>
-    /// Show the movement help screen if the player hasn't moved after a period of time.
+    /// Show the movement help screen.
     /// 
     /// The help screen is disabled after the player moves.
     /// </summary>
@@ -31,24 +31,21 @@ public class HelpScreen : MonoBehaviour
     /// <returns></returns>
     private IEnumerator MovementHelp(Player player)
     {
+        movementScreen.SetActive(true);
+
         yield return new WaitForSeconds(waitTime);
 
-        // If the player hasn't moved
-        if (player._paddle.transform.position == player._paddle._paddlePositionInitial)
+        // While the player hasn't moved
+        while (player._paddle.transform.position == player._paddle._paddlePositionInitial)
         {
-            movementScreen.SetActive(true);
-
-            while (player._paddle.transform.position == player._paddle._paddlePositionInitial)
-            {
-                yield return null;
-            }
-
-            movementScreen.SetActive(false);
+            yield return null;
         }
+
+        movementScreen.SetActive(false);
     }
 
     /// <summary>
-    /// Show the shoot help screen if the player hasn't released the ball after a period of time.
+    /// Show the shoot help screen.
     /// 
     /// The help screen is disabled after the player releases the ball.
     /// </summary>
@@ -56,8 +53,6 @@ public class HelpScreen : MonoBehaviour
     /// <returns></returns>
     private IEnumerator ShootHelp(Player player)
     {
-        yield return new WaitForSeconds(waitTime);
-
         // If the player hasn't released the ball
         if (!player._isGameStarted)
         {
