@@ -1,45 +1,59 @@
-# ML-Breakout
+# Breakout AI
 
-How to setup ml-agents
+Experience the classic arcade game with a twist as you challenge an AI opponent powered by Unity's ML-Agents toolkit in this exciting Unity game project.
 
-- ml-agents is only compatible with python 3.7 or 3.8, ml-agents recommends 3.7 for windows
-- To accomplish this we need to install a few things
-  - First get pyenv for windows by running the following in powershell
-   ```Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"```
-   - restart the terminal then run
-   ```
-    pyenv install 3.7.9
-    pyenv global 3.7.9 
-   ```
-- These commands install python 3.7 and make it so any time you use python it utilizes that version when set to global. 
-  
-Follow the steps below to setup the env
-  
-  
-## py-env
-We setup a pyenv which we will activate any time we need to train models.
-```
-mkdir python-envs
-python -m venv python-envs/ML-Breakout-env
-Linux: source ~/python-envs/ML-Breakout-env/bin/activate || Windows: python-envs\ML-Breakout-env\Scripts\activate
-pip3 install --upgrade pip
-pip3 install --upgrade setuptools
-pip3 install torch~=1.7.1 -f https://download.pytorch.org/whl/torch_stable.html
-python -m pip install mlagents
-pip install protobuf==3.20.*
-pip install importlib-metadata==4.4
-```
-run ```mlagents-learn --help``` to test
+Check it out [here](https://play.unity.com/mg/other/breakout-ai)!
 
-## Add packages to project
+## Features
 
-They might already be added in the project, but just in case here is how to check and add them.
+- Single-player mode and versus mode against an AI opponent.
+- 10 procedurally-generated levels.
+- Scoring system to track and compare player performance.
+- Immersive audio to enhance the gaming experience.
 
+## AI Opponent Details
 
-1. navigate to the menu Window -> Package Manager.
-2. In the package manager window click on the + button on the top left of the packages list.
-3. Select Add package from disk...
-4. Navigate into the com.unity.ml-agents folder.
-5. Select the package.json file.
+- Powered by Unity's ML-Agents toolkit.
+- Trained for 1.5m steps via reinforcement and imitation learning (~4 hours of training with 10 concurrent training environments).
 
-Do these same steps for com.unity.ml-agents.extensions
+## Screenshots
+
+### Main Menu
+
+![Main Menu](./Images/MainMenu.png)
+
+### Single-Player Mode
+
+![Main Menu](./Images/Breakout.png)
+
+### Versus Mode
+
+![Main Menu](./Images/BreakoutVersus.png)
+
+## TensorBoard Graphs
+
+### Cumulative Reward
+
+![Main Menu](./Images/TensorBoard-CumulativeReward.png)
+
+- X-axis: Number of training steps.
+- Y-axis: Cumulative reward.
+
+Positive rewards are given when the ML Agent destroys a brick, while negative rewards are given when the Agent loses a life. The above graph shows that rewards increase as training time increases, meaning that the Agent destroys bricks more often and/or loses lives less often.
+
+### Episode Length
+
+![Main Menu](./Images/TensorBoard-EpisodeLength.png)
+
+- X-axis: Number of training steps.
+- Y-axis: Episode length.
+
+The training episode ends when the ML Agent loses a life. The above graph shows that episode length increases as training time increases, meaning the Agent loses lives less often.
+
+## Special Thanks
+
+- [DamageSoftware](https://www.youtube.com/@DamageSoftware) for general guidance and assets.
+- [Kenney](https://kenney.nl/) for image assets.
+- [Abstraction](https://www.abstractionmusic.com/) for music assets.
+- [Tim Beek](https://timbeek.itch.io/casual-soundfx-pack) for SFX assets.
+- [Youssef Habchi](https://www.fontspace.com/reglisse-font-f43313) for font assets.
