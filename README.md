@@ -55,5 +55,5 @@ The training episode ends when the ML Agent loses a life. The above graph shows 
 - [DamageSoftware](https://www.youtube.com/@DamageSoftware) for general guidance and assets.
 - [Kenney](https://kenney.nl/) for image assets.
 - [Abstraction](https://www.abstractionmusic.com/) for music assets.
-- [Tim Beek](https://timbeek.itch.io/casual-soundfx-pack) for SFX assets.
-- [Youssef Habchi](https://www.fontspace.com/reglisse-font-f43313) for font assets.
+- [Tim Beek](https://timbeek.itch.io/) for SFX assets.
+- [Youssef Habchi](https://www.fontspace.com/youssef-habchi) for font assets.
