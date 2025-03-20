@@ -2,7 +2,7 @@
 
 Experience the classic arcade game with a twist as you challenge an AI opponent powered by Unity's ML-Agents toolkit in this exciting Unity game project.
 
-Check it out [here](https://play.unity.com/mg/other/breakout-ai)!
+Check it out [here](https://play.unity.com/en/games/add8c938-9f99-4a6b-97f0-656f5bb21b9c/breakout-ai)!
 
 ## Features
 
